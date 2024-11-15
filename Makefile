@@ -5,5 +5,5 @@ lint: FORCE
 	mvn checkstyle:check
 
 format: FORCE
-	mvn googleformatter:format
+	mvn formatter:format
 FORCE: ;
