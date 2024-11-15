@@ -38,10 +38,15 @@ public class ArbitraryBuildingTest {
         ArrayList<Effect> otherResources3 = new ArrayList<>();
         otherResources3.add(Effect.FOOD);
         assertEquals(building.build(otherResources3), OptionalInt.empty());
-        try {
-            ArbitraryBuilding building1 = new ArbitraryBuilding(0);
-        } catch (Exception e) {
-            assert (e instanceof IllegalArgumentException);
-        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throwWhenArgumentTooSmall() {
+        new ArbitraryBuilding(0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throwWhenArgumentTooBig() {
+        new ArbitraryBuilding(8);
     }
 }
