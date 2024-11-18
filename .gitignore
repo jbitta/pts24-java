@@ -24,4 +24,8 @@ target
 
 # zatial odignorujeme cely adresar .idea/, ked ho nahodou budeme potrebovat,
 # tak ho pridame spat
-.idea
+.idea/*
+
+# vynimky
+!.idea/misc.xml
+!.idea/codeStyles
