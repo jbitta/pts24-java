@@ -1,13 +1,14 @@
 package sk.uniba.fmph.dcs.stone_age;
 
+import java.util.Collection;
 import java.util.OptionalInt;
 
 public interface InterfacePlayerBoardGameBoard {
-    void giveEffect(Effect[] stuff);
+    void giveEffect(Collection<Effect> stuff);
 
-    void giveEndOfGameEffect(EndOfGameEffect[] stuff);
+    void giveEndOfGameEffect(Collection<EndOfGameEffect> stuff);
 
-    boolean takeResources(Effect[] stuff);
+    boolean takeResources(Collection<Effect> stuff);
 
     boolean takeFigures(int count);
 
