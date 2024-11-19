@@ -1,11 +1,12 @@
 package sk.uniba.fmph.dcs.stone_age;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 public interface InterfaceStoneAgeGame {
     boolean placeFigures(int playerId, Location location, int figuresCount);
 
-    boolean makeAction(int playerId, Location location, ArrayList<Effect> usedResources, ArrayList<Effect> desiredResources);
+    boolean makeAction(int playerId, Location location, Collection<Effect> usedResources,
+            Collection<Effect> desiredResources);
 
     boolean skipAction(int playerId, Location location);
 
@@ -13,7 +14,7 @@ public interface InterfaceStoneAgeGame {
 
     boolean noMoreToolsThisThrow(int playerId);
 
-    boolean feedTribe(int playerId, ArrayList<Effect> resources);
+    boolean feedTribe(int playerId, Collection<Effect> resources);
 
     boolean doNotFeedThisTurn(int playerId);
 
