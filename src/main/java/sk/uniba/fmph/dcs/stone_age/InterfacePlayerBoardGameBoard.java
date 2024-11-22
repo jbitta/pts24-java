@@ -12,10 +12,15 @@ public interface InterfacePlayerBoardGameBoard {
 
     boolean takeFigures(int count);
 
+    void giveFigures(int count);
+
     boolean hasFigures(int count);
 
     boolean hasSufficientTools(int goal);
 
     OptionalInt useTool(int idx);
 
+    void takePoints(int points);
+
+    void givePoints(int points);
 }

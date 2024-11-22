@@ -1,11 +1,13 @@
 package sk.uniba.fmph.dcs.game_board;
 
+import org.json.JSONObject;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
+import java.util.Set;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.OptionalInt;
-import java.util.Set;
 
 public final class VariableBuilding implements Building {
     private final int numberOfResources;
@@ -40,5 +42,12 @@ public final class VariableBuilding implements Building {
             return OptionalInt.empty();
         }
         return OptionalInt.of(sum);
+    }
+
+    @Override
+    public String state() {
+        Map<String, String> stateMap = Map.of("numberOfResources", Integer.toString(numberOfResources),
+                "NumberOfResourceTypes", Integer.toString(numberOfResourcesTypes));
+        return new JSONObject(stateMap).toString();
     }
 }
