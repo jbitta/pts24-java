@@ -12,10 +12,14 @@ public final class ToolMakerHutFields {
     private final ArrayList<PlayerOrder> hutFigures;
     private final ArrayList<PlayerOrder> fieldsFigures;
     private final int restriction;
-    private final int lessThenFourRestriction = 3;
-    private final int four = 4;
+    private static final int LESS_THAN_FOUR_RESTRICTION = 2;
+    private static final int MAX_PLAYERS = 4;
+    private static final int MIN_PLAYERS = 2;
 
     public ToolMakerHutFields(final int playerCount) {
+        if (playerCount > MAX_PLAYERS || playerCount < MIN_PLAYERS) {
+            throw new IllegalArgumentException("Only 2-4 players");
+        }
         toolMakerFigures = new ArrayList<>();
         hutFigures = new ArrayList<>();
         fieldsFigures = new ArrayList<>();
@@ -23,6 +27,9 @@ public final class ToolMakerHutFields {
     }
 
     private boolean restrictionViolated() {
+        if (restriction == MAX_PLAYERS) {
+            return false;
+        }
         int occupiedLocations = 0;
         if (!toolMakerFigures.isEmpty()) {
             occupiedLocations++;
@@ -33,10 +40,7 @@ public final class ToolMakerHutFields {
         if (!fieldsFigures.isEmpty()) {
             occupiedLocations++;
         }
-        if (restriction == four) {
-            return false;
-        }
-        return occupiedLocations < lessThenFourRestriction;
+        return occupiedLocations == LESS_THAN_FOUR_RESTRICTION;
     }
 
     public boolean placeOnToolMaker(final Player player) {
@@ -52,6 +56,7 @@ public final class ToolMakerHutFields {
             ArrayList<Effect> addTool = new ArrayList<>();
             addTool.add(Effect.TOOL);
             player.playerBoard().giveEffect(addTool);
+            toolMakerFigures.remove(player.playerOrder());
             return true;
         }
         return false;
@@ -76,6 +81,8 @@ public final class ToolMakerHutFields {
     public boolean actionHut(final Player player) {
         if (hutFigures.contains(player.playerOrder())) {
             player.playerBoard().giveFigures(1);
+            hutFigures.remove(player.playerOrder());
+            hutFigures.remove(player.playerOrder());
             return true;
         }
         return false;
@@ -101,6 +108,7 @@ public final class ToolMakerHutFields {
             ArrayList<Effect> increaseAgricultureLevel = new ArrayList<>();
             increaseAgricultureLevel.add(Effect.FIELD);
             player.playerBoard().giveEffect(increaseAgricultureLevel);
+            fieldsFigures.remove(player.playerOrder());
             return true;
         }
         return false;
@@ -118,8 +126,9 @@ public final class ToolMakerHutFields {
     }
 
     String state() {
-        Map<String, String> state = Map.of("tool maker figures", toolMakerFigures.toString(), "hut figures",
-                hutFigures.toString(), "field figures", fieldsFigures.toString());
+        String restrictionString = "" + restriction;
+        Map<String, String> state = Map.of("toolMakerFigures", toolMakerFigures.toString(), "hutFigures",
+                hutFigures.toString(), "fieldsFigures", fieldsFigures.toString(), "restriction", restrictionString);
         return new JSONObject(state).toString();
     }
 }
