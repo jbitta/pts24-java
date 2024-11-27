@@ -44,7 +44,7 @@ public class ToolMakerHutFieldsTest {
 
         @Override
         public boolean hasFigures(int count) {
-            return false;
+            return true;
         }
 
         @Override
@@ -74,6 +74,7 @@ public class ToolMakerHutFieldsTest {
     Player player2 = new Player(playerOrder2, playerBoard);
     Player player3 = new Player(playerOrder3, playerBoard);
     ArrayList<Player> players = new ArrayList<>(List.of(player1, player2, player3));
+
 
     @Test(expected = IllegalArgumentException.class)
     public void testTooManyPlayers() {
