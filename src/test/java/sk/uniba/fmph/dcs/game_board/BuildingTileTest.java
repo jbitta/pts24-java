@@ -18,6 +18,7 @@ import java.util.OptionalInt;
 import static org.junit.Assert.*;
 
 public class BuildingTileTest {
+
     InterfacePlayerBoardGameBoard interfacePlayerBoardGameBoard = new InterfacePlayerBoardGameBoard() {
 
         @Override
@@ -79,30 +80,37 @@ public class BuildingTileTest {
         for (int i = 1; i < 3; i++) {
             a.add(new ArbitraryBuilding(1));
         }
+
         for (int i = 1; i < 5; i++) {
             a.add(new VariableBuilding(1, 1));
         }
+
         a.add(new SimpleBuilding(List.of(Effect.STONE, Effect.GOLD, Effect.WOOD)));
         return a;
     }
 
+    public void test_state(JSONObject state, Building building, int expectedNum, ArrayList<PlayerOrder> playerOrder) {
+        assertEquals((building != null ? building.state() : "{}"), state.getString("currentBuilding"));
+        assertEquals(Integer.toString(expectedNum), state.getString("numberOfCardsInBuildingTile"));
+        assertEquals(playerOrder.toString(), state.getString("figures"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void test_TooFewCards() {
-        buildingCards = setBuildingCards();
-        buildingCards.remove(0);
-        assertEquals(buildingCards.size(), 6);
+        assertEquals(buildingCards.size(), 0);
         BuildingTile buildingTile1 = new BuildingTile(buildingCards);
     }
 
     @Test
     public void test_GoodInitialization() {
         buildingCards = setBuildingCards();
-        assertEquals(buildingCards.size(), 7);
-        BuildingTile buildingTile1 = new BuildingTile(buildingCards);
-        JSONObject state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        for (int i = 7; i >= 1; i--) {
+            assertEquals(buildingCards.size(), i);
+            BuildingTile buildingTile1 = new BuildingTile(buildingCards);
+            JSONObject state = new JSONObject(buildingTile1.state());
+            test_state(state, simpleBuilding, i, emptyOrder);
+            buildingCards.remove(0);
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -116,12 +124,11 @@ public class BuildingTileTest {
     @Test
     public void test_tryToPlaceFigures() {
         buildingCards = setBuildingCards();
+
         assertEquals(buildingCards.size(), 7);
         BuildingTile buildingTile1 = new BuildingTile(buildingCards);
         JSONObject state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, emptyOrder);
 
         for (int i = 0; i <= 10; i++) {
             if (i != 1) {
@@ -133,9 +140,7 @@ public class BuildingTileTest {
             assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, buildingTile1.tryToPlaceFigures(player2, i));
         }
         state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, emptyOrder);
     }
 
     @Test
@@ -144,9 +149,7 @@ public class BuildingTileTest {
         assertEquals(buildingCards.size(), 7);
         BuildingTile buildingTile1 = new BuildingTile(buildingCards);
         JSONObject state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, emptyOrder);
 
         assertFalse(buildingTile1.placeFigures(player1, 2));
         assertFalse(buildingTile1.placeFigures(player1, 0));
@@ -154,9 +157,7 @@ public class BuildingTileTest {
         assertFalse(buildingTile1.placeFigures(player2, 1));
 
         state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(playerOrder1.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, playerOrder1);
     }
 
     @Test
@@ -170,17 +171,13 @@ public class BuildingTileTest {
 
         assertTrue(buildingTile1.placeFigures(player1, 1));
         JSONObject state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(playerOrder1.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, playerOrder1);
 
         assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, buildingTile1.tryToMakeAction(player1));
         assertEquals(HasAction.NO_ACTION_POSSIBLE, buildingTile1.tryToMakeAction(player2));
 
         state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(playerOrder1.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, playerOrder1);
     }
 
     @Test
@@ -191,32 +188,26 @@ public class BuildingTileTest {
         ArrayList<Effect> inputResources1 = new ArrayList<>(List.of(Effect.STONE, Effect.WOOD, Effect.GOLD));
         ArrayList<Effect> inputResources2 = new ArrayList<>(List.of(Effect.WOOD));
         JSONObject state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, emptyOrder);
 
         assertEquals(ActionResult.FAILURE, buildingTile1.makeAction(player2, inputResources1, inputResources1));
         assertEquals(ActionResult.FAILURE, buildingTile1.makeAction(player1, inputResources2, inputResources1));
         assertTrue(buildingTile1.placeFigures(player1, 1));
         assertEquals(ActionResult.ACTION_DONE, buildingTile1.makeAction(player1, inputResources1, inputResources1));
+
         state = new JSONObject(buildingTile1.state());
-        assertEquals(variableBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("6", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, variableBuilding, 6, emptyOrder);
 
         assertEquals(HasAction.NO_ACTION_POSSIBLE, buildingTile1.tryToMakeAction(player1));
         assertEquals(HasAction.NO_ACTION_POSSIBLE, buildingTile1.tryToMakeAction(player2));
 
         state = new JSONObject(buildingTile1.state());
-        assertEquals(variableBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("6", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, variableBuilding, 6, emptyOrder);
 
         assertTrue(buildingTile1.placeFigures(player2, 1));
+
         state = new JSONObject(buildingTile1.state());
-        assertEquals(variableBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("6", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(new ArrayList<>(List.of(player2.playerOrder())).toString(), state.getString("figures"));
+        test_state(state, variableBuilding, 6, playerOrder2);
 
         assertEquals(HasAction.NO_ACTION_POSSIBLE, buildingTile1.tryToMakeAction(player1));
         assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, buildingTile1.tryToMakeAction(player2));
@@ -225,10 +216,9 @@ public class BuildingTileTest {
         assertEquals(ActionResult.FAILURE, buildingTile1.makeAction(player1, inputResources2, Collections.emptyList()));
         assertEquals(ActionResult.ACTION_DONE,
                 buildingTile1.makeAction(player2, inputResources2, Collections.emptyList()));
+
         state = new JSONObject(buildingTile1.state());
-        assertEquals(variableBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("5", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, variableBuilding, 5, emptyOrder);
     }
 
     @Test
@@ -246,17 +236,15 @@ public class BuildingTileTest {
         ArrayList<Effect> inputResources2 = new ArrayList<>(List.of(Effect.WOOD));
         for (int i = 7; i > 1; i--) {
             state = new JSONObject(buildingTile1.state());
-            assertEquals(simpleBuildingOnlyWood.state(), state.getString("currentBuilding"));
-            assertEquals(Integer.toString(i), state.getString("numberOfCardsInBuildingTile"));
-            assertEquals(emptyOrder.toString(), state.getString("figures"));
+            test_state(state, simpleBuildingOnlyWood, i, emptyOrder);
+
             assertFalse(buildingTile1.newTurn());
             assertTrue(buildingTile1.placeFigures(player1, 1));
             assertEquals(ActionResult.ACTION_DONE, buildingTile1.makeAction(player1, inputResources2, inputResources1));
         }
         state = new JSONObject(buildingTile1.state());
-        assertEquals(variableBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("1", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, variableBuilding, 1, emptyOrder);
+
         assertFalse(buildingTile1.newTurn());
         assertTrue(buildingTile1.placeFigures(player1, 1));
         assertEquals(ActionResult.ACTION_DONE, buildingTile1.makeAction(player1, inputResources2, inputResources1));
@@ -269,9 +257,7 @@ public class BuildingTileTest {
         assertEquals(HasAction.NO_ACTION_POSSIBLE, buildingTile1.tryToMakeAction(player2));
 
         state = new JSONObject(buildingTile1.state());
-        assertEquals("emptyBuilding", state.getString("currentBuilding"));
-        assertEquals("0", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, null, 0, emptyOrder);
     }
 
     @Test
@@ -280,21 +266,18 @@ public class BuildingTileTest {
         assertEquals(buildingCards.size(), 7);
         BuildingTile buildingTile1 = new BuildingTile(buildingCards);
         JSONObject state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, emptyOrder);
 
         assertTrue(buildingTile1.placeFigures(player1, 1));
+
         state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(playerOrder1.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, playerOrder1);
 
         assertTrue(buildingTile1.skipAction(player1));
+
         state = new JSONObject(buildingTile1.state());
-        assertEquals(simpleBuilding.state(), state.getString("currentBuilding"));
-        assertEquals("7", state.getString("numberOfCardsInBuildingTile"));
-        assertEquals(emptyOrder.toString(), state.getString("figures"));
+        test_state(state, simpleBuilding, 7, emptyOrder);
+
         assertFalse(buildingTile1.skipAction(player2));
         assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, buildingTile1.tryToPlaceFigures(player1, 1));
         assertEquals(HasAction.WAITING_FOR_PLAYER_ACTION, buildingTile1.tryToPlaceFigures(player2, 1));
