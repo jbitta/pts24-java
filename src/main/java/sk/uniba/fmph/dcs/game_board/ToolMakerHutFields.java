@@ -46,6 +46,7 @@ public final class ToolMakerHutFields {
     public boolean placeOnToolMaker(final Player player) {
         if (canPlaceOnToolMaker(player)) {
             toolMakerFigures.add(player.playerOrder());
+            player.playerBoard().takeFigures(1);
             return true;
         }
         return false;
@@ -63,7 +64,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnToolMaker(final Player player) {
-        if (restrictionViolated()) {
+        if (restrictionViolated() || !player.playerBoard().hasFigures(1)) {
             return false;
         }
         return toolMakerFigures.isEmpty();
@@ -73,6 +74,7 @@ public final class ToolMakerHutFields {
         if (canPlaceOnHut(player)) {
             hutFigures.add(player.playerOrder());
             hutFigures.add(player.playerOrder());
+            player.playerBoard().takeFigures(2);
             return true;
         }
         return false;
@@ -89,7 +91,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnHut(final Player player) {
-        if (restrictionViolated()) {
+        if (restrictionViolated() || !player.playerBoard().hasFigures(2)) {
             return false;
         }
         return hutFigures.isEmpty();
@@ -98,6 +100,7 @@ public final class ToolMakerHutFields {
     public boolean placeOnFields(final Player player) {
         if (canPlaceOnFields(player)) {
             fieldsFigures.add(player.playerOrder());
+            player.playerBoard().takeFigures(1);
             return true;
         }
         return false;
@@ -115,7 +118,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean canPlaceOnFields(final Player player) {
-        if (restrictionViolated()) {
+        if (restrictionViolated() || !player.playerBoard().hasFigures(1)) {
             return false;
         }
         return fieldsFigures.isEmpty();
