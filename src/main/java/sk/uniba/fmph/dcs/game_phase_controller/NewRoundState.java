@@ -1,19 +1,16 @@
 package sk.uniba.fmph.dcs.game_phase_controller;
 
-import sk.uniba.fmph.dcs.stone_age.ActionResult;
-import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.HasAction;
-import sk.uniba.fmph.dcs.stone_age.InterfaceFigureLocation;
-import sk.uniba.fmph.dcs.stone_age.Location;
-import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.*;
 
 import java.util.Collection;
 
 public final class NewRoundState implements InterfaceGamePhaseState {
     private final Collection<InterfaceFigureLocation> places;
+    InterfaceNewTurn newTurn;
 
-    public NewRoundState(final Collection<InterfaceFigureLocation> places) {
+    public NewRoundState(final Collection<InterfaceFigureLocation> places, final InterfaceNewTurn newTurn) {
         this.places = places;
+        this.newTurn = newTurn;
     }
 
     @Override
@@ -64,6 +61,7 @@ public final class NewRoundState implements InterfaceGamePhaseState {
                 return HasAction.NO_ACTION_POSSIBLE;
             }
         }
+        newTurn.newTurn();;
         return HasAction.AUTOMATIC_ACTION_DONE;
     }
 }
