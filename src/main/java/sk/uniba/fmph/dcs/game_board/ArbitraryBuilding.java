@@ -1,8 +1,10 @@
 package sk.uniba.fmph.dcs.game_board;
 
+import org.json.JSONObject;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.OptionalInt;
 
 public final class ArbitraryBuilding implements Building {
@@ -29,5 +31,11 @@ public final class ArbitraryBuilding implements Building {
             sum += resource.points();
         }
         return OptionalInt.of(sum);
+    }
+
+    @Override
+    public String state() {
+        Map<String, String> stateMap = Map.of("maxNumberOfResources", Integer.toString(maxNumberOfResources));
+        return new JSONObject(stateMap).toString();
     }
 }
