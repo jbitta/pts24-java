@@ -68,7 +68,10 @@ public final class WaitingForToolUseState implements InterfaceGamePhaseState {
     public HasAction tryToMakeAutomaticAction(final PlayerOrder player) {
         if (toolUse.get(player).canUseTools()) {
             return HasAction.WAITING_FOR_PLAYER_ACTION;
+        } else if (toolUse.get(player).finishUsingTools()) {
+            return HasAction.NO_ACTION_POSSIBLE;
+        } else {
+            return HasAction.AUTOMATIC_ACTION_DONE;
         }
-        return HasAction.NO_ACTION_POSSIBLE;
     }
 }
