@@ -10,15 +10,14 @@ import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
-
 public class WaintingForToolUseStateTest {
-    static class ToolUseMock implements InterfaceToolUse{
+    static class ToolUseMock implements InterfaceToolUse {
 
         private boolean useTool;
         private boolean canUseTools;
         private boolean finishUsingTools;
 
-        ToolUseMock (final boolean useTool, final boolean canUseTools, final boolean finishUsingTools){
+        ToolUseMock(final boolean useTool, final boolean canUseTools, final boolean finishUsingTools) {
             this.useTool = useTool;
             this.canUseTools = canUseTools;
             this.finishUsingTools = finishUsingTools;
@@ -41,10 +40,10 @@ public class WaintingForToolUseStateTest {
     }
 
     @Test
-    public void useToolsTest(){
+    public void useToolsTest() {
         Map<PlayerOrder, InterfaceToolUse> toolUseMap = new HashMap<>();
-        PlayerOrder p1 = new PlayerOrder(1,2);
-        PlayerOrder p2 = new PlayerOrder(2,2);
+        PlayerOrder p1 = new PlayerOrder(1, 2);
+        PlayerOrder p2 = new PlayerOrder(2, 2);
         toolUseMap.put(p1, new ToolUseMock(true, true, false));
         toolUseMap.put(p2, new ToolUseMock(false, false, true));
         WaitingForToolUseState wftus = new WaitingForToolUseState(toolUseMap);
@@ -54,10 +53,10 @@ public class WaintingForToolUseStateTest {
     }
 
     @Test
-    public void noMoreToolsThisThrowTest(){
+    public void noMoreToolsThisThrowTest() {
         Map<PlayerOrder, InterfaceToolUse> toolUseMap = new HashMap<>();
-        PlayerOrder p1 = new PlayerOrder(1,2);
-        PlayerOrder p2 = new PlayerOrder(2,2);
+        PlayerOrder p1 = new PlayerOrder(1, 2);
+        PlayerOrder p2 = new PlayerOrder(2, 2);
         toolUseMap.put(p1, new ToolUseMock(true, true, false));
         toolUseMap.put(p2, new ToolUseMock(false, false, true));
         WaitingForToolUseState wftus = new WaitingForToolUseState(toolUseMap);
@@ -67,20 +66,19 @@ public class WaintingForToolUseStateTest {
     }
 
     @Test
-    public void tryToMakeAutomaticActionTest(){
+    public void tryToMakeAutomaticActionTest() {
         Map<PlayerOrder, InterfaceToolUse> toolUseMap = new HashMap<>();
-        PlayerOrder p1 = new PlayerOrder(1,3);
-        PlayerOrder p2 = new PlayerOrder(2,3);
-        PlayerOrder p3 = new PlayerOrder(3,3);
+        PlayerOrder p1 = new PlayerOrder(1, 3);
+        PlayerOrder p2 = new PlayerOrder(2, 3);
+        PlayerOrder p3 = new PlayerOrder(3, 3);
         toolUseMap.put(p1, new ToolUseMock(false, false, false));
         toolUseMap.put(p2, new ToolUseMock(true, true, true));
-        toolUseMap.put(p3, new ToolUseMock(true,true,false));
+        toolUseMap.put(p3, new ToolUseMock(true, true, false));
         WaitingForToolUseState wftus = new WaitingForToolUseState(toolUseMap);
 
         assertEquals(wftus.tryToMakeAutomaticAction(p1), HasAction.NO_ACTION_POSSIBLE);
         assertEquals(wftus.tryToMakeAutomaticAction(p2), HasAction.AUTOMATIC_ACTION_DONE);
         assertEquals(wftus.tryToMakeAutomaticAction(p3), HasAction.WAITING_FOR_PLAYER_ACTION);
     }
-
 
 }

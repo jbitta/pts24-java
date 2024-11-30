@@ -11,11 +11,13 @@ public class MakeActionStateTest {
         private ActionResult makeAction;
         private boolean skipAction;
         private HasAction tryToMakeAction;
-        FigureLocationMock(final ActionResult makeAction, final boolean skipAction, final HasAction tryToMakeAction){
+
+        FigureLocationMock(final ActionResult makeAction, final boolean skipAction, final HasAction tryToMakeAction) {
             this.makeAction = makeAction;
             this.skipAction = skipAction;
             this.tryToMakeAction = tryToMakeAction;
         }
+
         @Override
         public boolean placeFigures(PlayerOrder player, int figureCount) {
             return false;
@@ -28,7 +30,7 @@ public class MakeActionStateTest {
 
         @Override
         public ActionResult makeAction(PlayerOrder player, Collection<Effect> inputResources,
-                                       Collection<Effect> outputResources) {
+                Collection<Effect> outputResources) {
             return makeAction;
         }
 
@@ -49,45 +51,52 @@ public class MakeActionStateTest {
     }
 
     @Test
-    public void makeActionTest(){
+    public void makeActionTest() {
         Map<Location, InterfaceFigureLocation> places = new HashMap<>();
-        places.put(Location.TOOL_MAKER, new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
+        places.put(Location.TOOL_MAKER,
+                new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
         places.put(Location.HUT, new FigureLocationMock(ActionResult.FAILURE, true, HasAction.AUTOMATIC_ACTION_DONE));
         MakeActionState mas = new MakeActionState(places);
 
-        assertEquals(mas.makeAction(new PlayerOrder(1,2), Location.TOOL_MAKER, List.of(Effect.STONE), List.of(Effect.STONE)), ActionResult.ACTION_DONE);
-        assertEquals(mas.makeAction(new PlayerOrder(2,2), Location.HUT, List.of(Effect.STONE), List.of(Effect.STONE)), ActionResult.FAILURE);
+        assertEquals(mas.makeAction(new PlayerOrder(1, 2), Location.TOOL_MAKER, List.of(Effect.STONE),
+                List.of(Effect.STONE)), ActionResult.ACTION_DONE);
+        assertEquals(mas.makeAction(new PlayerOrder(2, 2), Location.HUT, List.of(Effect.STONE), List.of(Effect.STONE)),
+                ActionResult.FAILURE);
 
     }
 
     @Test
-    public void skipActionTest(){
+    public void skipActionTest() {
         Map<Location, InterfaceFigureLocation> places = new HashMap<>();
-        places.put(Location.TOOL_MAKER, new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
-        places.put(Location.HUT, new FigureLocationMock(ActionResult.ACTION_DONE, false, HasAction.AUTOMATIC_ACTION_DONE));
+        places.put(Location.TOOL_MAKER,
+                new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
+        places.put(Location.HUT,
+                new FigureLocationMock(ActionResult.ACTION_DONE, false, HasAction.AUTOMATIC_ACTION_DONE));
         MakeActionState mas = new MakeActionState(places);
 
-        assertEquals(mas.skipAction(new PlayerOrder(1,2), Location.TOOL_MAKER), ActionResult.ACTION_DONE);
-        assertEquals(mas.skipAction(new PlayerOrder(2,2), Location.HUT), ActionResult.FAILURE);
+        assertEquals(mas.skipAction(new PlayerOrder(1, 2), Location.TOOL_MAKER), ActionResult.ACTION_DONE);
+        assertEquals(mas.skipAction(new PlayerOrder(2, 2), Location.HUT), ActionResult.FAILURE);
 
     }
 
     @Test
-    public void tryToMakeAutomaticActionTest(){
+    public void tryToMakeAutomaticActionTest() {
         Map<Location, InterfaceFigureLocation> places1 = new HashMap<>();
         Map<Location, InterfaceFigureLocation> places2 = new HashMap<>();
         Map<Location, InterfaceFigureLocation> places3 = new HashMap<>();
-        places1.put(Location.TOOL_MAKER, new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
-        places2.put(Location.HUT, new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.WAITING_FOR_PLAYER_ACTION));
-        places3.put(Location.FOREST, new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.NO_ACTION_POSSIBLE));
+        places1.put(Location.TOOL_MAKER,
+                new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
+        places2.put(Location.HUT,
+                new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.WAITING_FOR_PLAYER_ACTION));
+        places3.put(Location.FOREST,
+                new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.NO_ACTION_POSSIBLE));
         MakeActionState mas1 = new MakeActionState(places1);
         MakeActionState mas2 = new MakeActionState(places2);
         MakeActionState mas3 = new MakeActionState(places3);
 
-        assertEquals(mas1.tryToMakeAutomaticAction(new PlayerOrder(1,3)), HasAction.AUTOMATIC_ACTION_DONE);
-        assertEquals(mas2.tryToMakeAutomaticAction(new PlayerOrder(2,3)), HasAction.WAITING_FOR_PLAYER_ACTION);
-        assertEquals(mas3.tryToMakeAutomaticAction(new PlayerOrder(3,3)), HasAction.NO_ACTION_POSSIBLE);
+        assertEquals(mas1.tryToMakeAutomaticAction(new PlayerOrder(1, 3)), HasAction.AUTOMATIC_ACTION_DONE);
+        assertEquals(mas2.tryToMakeAutomaticAction(new PlayerOrder(2, 3)), HasAction.WAITING_FOR_PLAYER_ACTION);
+        assertEquals(mas3.tryToMakeAutomaticAction(new PlayerOrder(3, 3)), HasAction.NO_ACTION_POSSIBLE);
 
     }
 }
-

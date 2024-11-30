@@ -9,12 +9,14 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 
 public class FeedTribeStateTest {
-    static class FeedTribeMock implements InterfaceFeedTribe{
+    static class FeedTribeMock implements InterfaceFeedTribe {
         private boolean feedTribeIfEnoughFood;
         private boolean feedTribe;
         private boolean doNotFeedThisTurn;
         private boolean isTribeFed;
-        FeedTribeMock(final boolean feedTribeIfEnoughFood, final boolean feedTribe, final boolean doNotFeedThisTurn, final boolean isTribeFed){
+
+        FeedTribeMock(final boolean feedTribeIfEnoughFood, final boolean feedTribe, final boolean doNotFeedThisTurn,
+                final boolean isTribeFed) {
             this.feedTribeIfEnoughFood = feedTribeIfEnoughFood;
             this.feedTribe = feedTribe;
             this.doNotFeedThisTurn = doNotFeedThisTurn;
@@ -44,10 +46,10 @@ public class FeedTribeStateTest {
     }
 
     @Test
-    public void feedTribeTest(){
+    public void feedTribeTest() {
         Map<PlayerOrder, InterfaceFeedTribe> feedTribeMap = new HashMap<>();
-        PlayerOrder p1 = new PlayerOrder(1,2);
-        PlayerOrder p2 = new PlayerOrder(2,2);
+        PlayerOrder p1 = new PlayerOrder(1, 2);
+        PlayerOrder p2 = new PlayerOrder(2, 2);
         feedTribeMap.put(p1, new FeedTribeMock(false, false, false, false));
         feedTribeMap.put(p2, new FeedTribeMock(true, true, true, true));
         FeedTribeState fts = new FeedTribeState(feedTribeMap);
@@ -58,10 +60,10 @@ public class FeedTribeStateTest {
     }
 
     @Test
-    public void doNotFeedThisTurnTest(){
+    public void doNotFeedThisTurnTest() {
         Map<PlayerOrder, InterfaceFeedTribe> feedTribeMap = new HashMap<>();
-        PlayerOrder p1 = new PlayerOrder(1,2);
-        PlayerOrder p2 = new PlayerOrder(2,2);
+        PlayerOrder p1 = new PlayerOrder(1, 2);
+        PlayerOrder p2 = new PlayerOrder(2, 2);
         feedTribeMap.put(p1, new FeedTribeMock(false, false, false, false));
         feedTribeMap.put(p2, new FeedTribeMock(true, true, true, true));
         FeedTribeState fts = new FeedTribeState(feedTribeMap);
@@ -71,11 +73,11 @@ public class FeedTribeStateTest {
     }
 
     @Test
-    public void tryToMakeAutomaticActionTest(){
+    public void tryToMakeAutomaticActionTest() {
         Map<PlayerOrder, InterfaceFeedTribe> feedTribeMap = new HashMap<>();
-        PlayerOrder p1 = new PlayerOrder(1,3);
-        PlayerOrder p2 = new PlayerOrder(2,3);
-        PlayerOrder p3 = new PlayerOrder(3,3);
+        PlayerOrder p1 = new PlayerOrder(1, 3);
+        PlayerOrder p2 = new PlayerOrder(2, 3);
+        PlayerOrder p3 = new PlayerOrder(3, 3);
         feedTribeMap.put(p1, new FeedTribeMock(false, false, false, true));
         feedTribeMap.put(p2, new FeedTribeMock(true, true, true, false));
         feedTribeMap.put(p3, new FeedTribeMock(false, false, false, false));
@@ -85,9 +87,6 @@ public class FeedTribeStateTest {
         assertEquals(fts.tryToMakeAutomaticAction(p2), HasAction.AUTOMATIC_ACTION_DONE);
         assertEquals(fts.tryToMakeAutomaticAction(p3), HasAction.WAITING_FOR_PLAYER_ACTION);
 
-
     }
-
-
 
 }

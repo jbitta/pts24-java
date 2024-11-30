@@ -75,7 +75,6 @@ public class ToolMakerHutFieldsTest {
     Player player3 = new Player(playerOrder3, playerBoard);
     ArrayList<Player> players = new ArrayList<>(List.of(player1, player2, player3));
 
-
     @Test(expected = IllegalArgumentException.class)
     public void testTooManyPlayers() {
         ToolMakerHutFields toolMakerHutFields = new ToolMakerHutFields(5);

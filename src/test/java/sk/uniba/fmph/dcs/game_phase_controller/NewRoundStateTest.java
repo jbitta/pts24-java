@@ -1,7 +1,12 @@
 package sk.uniba.fmph.dcs.game_phase_controller;
 
 import org.junit.Test;
-import sk.uniba.fmph.dcs.stone_age.*;
+import sk.uniba.fmph.dcs.stone_age.ActionResult;
+import sk.uniba.fmph.dcs.stone_age.HasAction;
+import sk.uniba.fmph.dcs.stone_age.InterfaceFigureLocation;
+import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.Effect;
+import sk.uniba.fmph.dcs.stone_age.InterfaceNewTurn;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,11 +16,11 @@ import static org.junit.Assert.assertEquals;
 
 public class NewRoundStateTest {
     static class FigureLocationMock implements InterfaceFigureLocation {
-        private boolean newTurn;
-        FigureLocationMock(boolean newTurn){
+        private final boolean newTurn;
+
+        FigureLocationMock(boolean newTurn) {
             this.newTurn = newTurn;
         }
-
 
         @Override
         public boolean placeFigures(PlayerOrder player, int figureCount) {
@@ -29,7 +34,7 @@ public class NewRoundStateTest {
 
         @Override
         public ActionResult makeAction(PlayerOrder player, Collection<Effect> inputResources,
-                                       Collection<Effect> outputResources) {
+                Collection<Effect> outputResources) {
             return null;
         }
 
@@ -48,8 +53,10 @@ public class NewRoundStateTest {
             return newTurn;
         }
     }
-    static class NewRoundMock implements InterfaceNewTurn{
+
+    static class NewRoundMock implements InterfaceNewTurn {
         boolean newTurn = false;
+
         @Override
         public void newTurn() {
             newTurn = true;
@@ -57,7 +64,7 @@ public class NewRoundStateTest {
     }
 
     @Test
-    public void tryToMakeAutomaticActionTest(){
+    public void tryToMakeAutomaticActionTest() {
         List<InterfaceFigureLocation> places1 = new ArrayList<>();
         places1.add(new FigureLocationMock(true));
 
@@ -65,9 +72,9 @@ public class NewRoundStateTest {
         places2.add(new FigureLocationMock(false));
 
         NewRoundState nrs1 = new NewRoundState(places1, new NewRoundMock());
-        assertEquals(nrs1.tryToMakeAutomaticAction(new PlayerOrder(1,1)), HasAction.NO_ACTION_POSSIBLE);
+        assertEquals(nrs1.tryToMakeAutomaticAction(new PlayerOrder(1, 1)), HasAction.NO_ACTION_POSSIBLE);
         NewRoundState nrs2 = new NewRoundState(places2, new NewRoundMock());
-        assertEquals(nrs2.tryToMakeAutomaticAction(new PlayerOrder(1,1)), HasAction.AUTOMATIC_ACTION_DONE);
+        assertEquals(nrs2.tryToMakeAutomaticAction(new PlayerOrder(1, 1)), HasAction.AUTOMATIC_ACTION_DONE);
     }
 
 }

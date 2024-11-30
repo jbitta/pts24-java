@@ -52,7 +52,7 @@ public final class BuildingTile implements InterfaceFigureLocationInternal {
 
     @Override
     public ActionResult makeAction(final Player player, final Collection<Effect> inputResources,
-                                   final Collection<Effect> outputResources) {
+            final Collection<Effect> outputResources) {
         if (tryToMakeAction(player).equals(HasAction.NO_ACTION_POSSIBLE)) {
             return ActionResult.FAILURE;
         }

@@ -7,8 +7,8 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
 public class GameEndStateTest {
     @Test
-    public void tryToMakeAutomaticActionTest(){
+    public void tryToMakeAutomaticActionTest() {
         GameEndState ges = new GameEndState();
-        assertEquals(ges.tryToMakeAutomaticAction(new PlayerOrder(1,1)), HasAction.WAITING_FOR_PLAYER_ACTION);
+        assertEquals(ges.tryToMakeAutomaticAction(new PlayerOrder(1, 1)), HasAction.WAITING_FOR_PLAYER_ACTION);
     }
 }
