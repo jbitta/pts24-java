@@ -65,7 +65,7 @@ public final class MakeActionState implements InterfaceGamePhaseState {
     public HasAction tryToMakeAutomaticAction(final PlayerOrder player) {
         for (Location location : places.keySet()) {
             if (places.get(location).tryToMakeAction(player) != HasAction.NO_ACTION_POSSIBLE) {
-                places.get(location).tryToMakeAction(player);
+                return places.get(location).tryToMakeAction(player);
             }
         }
         return HasAction.NO_ACTION_POSSIBLE;
