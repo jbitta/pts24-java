@@ -10,12 +10,13 @@ import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 
 public final class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private int requiredResources;
     private ArrayList<PlayerOrder> figures;
 
-    public CivilizationCardPlace(final CivilizationCardDeck deck, final CivilisationCard card, final CivilizationCardPlace next,
+    public CivilizationCardPlace(final CivilizationCardDeck deck, final Optional<CivilisationCard> card, final CivilizationCardPlace next,
             final int requiredResources, final Map<ImmediateEffect, EvaluateCivilisationCardImmediateEffect> evaluate) {
     } // Zatial takto
 
