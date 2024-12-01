@@ -66,8 +66,8 @@ public class RewardMenuTest {
 
     @Test
     public void testCalculation() {
-        PlayerOrder playerOrder1 = new PlayerOrder(0,2);
-        PlayerOrder playerOrder2 = new PlayerOrder(1,2);
+        PlayerOrder playerOrder1 = new PlayerOrder(0, 2);
+        PlayerOrder playerOrder2 = new PlayerOrder(1, 2);
         ArrayList<Player> players = new ArrayList<>();
         PlayerBoardMock boardMock = new PlayerBoardMock();
         Player player1 = new Player(playerOrder1, boardMock);
@@ -93,7 +93,7 @@ public class RewardMenuTest {
 
     @Test
     public void noPlayersTest() {
-        PlayerOrder playerOrder = new PlayerOrder(0,0);
+        PlayerOrder playerOrder = new PlayerOrder(0, 0);
         RewardMenu menu = new RewardMenu(new ArrayList<>());
         ArrayList<Effect> items = new ArrayList<>();
         items.add(Effect.WOOD);
@@ -105,7 +105,7 @@ public class RewardMenuTest {
 
     @Test
     public void noItemsTest() {
-        PlayerOrder playerOrder = new PlayerOrder(0,0);
+        PlayerOrder playerOrder = new PlayerOrder(0, 0);
         ArrayList<Player> players = new ArrayList<>();
         PlayerBoardMock boardMock = new PlayerBoardMock();
         Player player = new Player(playerOrder, boardMock);

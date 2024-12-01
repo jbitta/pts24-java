@@ -72,4 +72,3 @@ public class GetChoiceTest {
         assertEquals(getChoice.performEffect(p, Effect.GOLD), ActionResult.ACTION_DONE);
     }
 }
-

@@ -67,7 +67,7 @@ public class AllPlayersTakeRewardTest {
 
         AllPlayersTakeReward a = new AllPlayersTakeReward(menu, t);
 
-        PlayerOrder playerOrder = new PlayerOrder(0,0);
+        PlayerOrder playerOrder = new PlayerOrder(0, 0);
         Player p = new Player(playerOrder, board);
         assertEquals(a.performEffect(p, null), ActionResult.ACTION_DONE_ALL_PLAYERS_TAKE_A_REWARD);
 

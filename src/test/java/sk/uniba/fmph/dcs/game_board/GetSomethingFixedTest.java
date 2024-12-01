@@ -73,4 +73,3 @@ public class GetSomethingFixedTest {
         assertEquals(getFixed.performEffect(p, Effect.ONE_TIME_TOOL2), ActionResult.ACTION_DONE);
     }
 }
-

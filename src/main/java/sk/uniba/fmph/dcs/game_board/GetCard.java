@@ -4,10 +4,9 @@ import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
 import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
-import java.util.Collection;
 import java.util.Optional;
 
-public class GetCard implements EvaluateCivilisationCardImmediateEffect {
+public final class GetCard implements EvaluateCivilisationCardImmediateEffect {
     private final CivilizationCardDeck deck;
 
     public GetCard(final CivilizationCardDeck deck) {
@@ -20,4 +19,3 @@ public class GetCard implements EvaluateCivilisationCardImmediateEffect {
         return ActionResult.ACTION_DONE;
     }
 }
-

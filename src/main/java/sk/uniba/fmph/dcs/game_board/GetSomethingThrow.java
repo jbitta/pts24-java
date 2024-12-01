@@ -5,7 +5,7 @@ import sk.uniba.fmph.dcs.stone_age.Effect;
 
 public class GetSomethingThrow implements EvaluateCivilisationCardImmediateEffect {
     private final CurrentThrow currentThrow;
-    private final static int NUMBER_OF_DICES = 2;
+    private static final int NUMBER_OF_DICES = 2;
 
     public GetSomethingThrow(final CurrentThrow currentThrow) {
         this.currentThrow = currentThrow;

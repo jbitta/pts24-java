@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import org.json.JSONObject;
 
-
 public class RewardMenu implements InterfaceTakeReward {
     private ArrayList<Effect> items;
     private Map<PlayerOrder, Player> players;
@@ -20,16 +19,14 @@ public class RewardMenu implements InterfaceTakeReward {
 
     }
 
-
     public final void initiate(final ArrayList<Effect> items) {
         this.items = new ArrayList<>(items);
         this.players = mapInitiate(allPlayers);
     }
 
-
     private Map<PlayerOrder, Player> mapInitiate(final ArrayList<Player> players) {
         Map<PlayerOrder, Player> map = new HashMap<>();
-        for (Player p: players) {
+        for (Player p : players) {
             map.put(p.playerOrder(), p);
         }
         return map;

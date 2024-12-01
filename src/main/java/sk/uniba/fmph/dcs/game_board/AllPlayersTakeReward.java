@@ -24,7 +24,6 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
         this.t = t;
     }
 
-
     private static Map<Integer, Effect> resourceMapInitiate() {
         Map<Integer, Effect> map = new HashMap<>();
         map.put(WOODNUMBER, Effect.WOOD);
@@ -46,7 +45,6 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
         }
         return menuItems;
     }
-
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {

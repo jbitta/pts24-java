@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class GetChoice implements EvaluateCivilisationCardImmediateEffect {
 
-
-    public GetChoice() {}
+    public GetChoice() {
+    }
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {
