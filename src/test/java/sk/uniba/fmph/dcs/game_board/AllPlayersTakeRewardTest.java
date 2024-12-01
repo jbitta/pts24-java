@@ -63,7 +63,8 @@ public class AllPlayersTakeRewardTest {
             }
         };
         RewardMenu menu = new RewardMenu(new ArrayList<>());
-        Throw t = new Throw();
+        Throw t = new Throw(-1);
+
         AllPlayersTakeReward a = new AllPlayersTakeReward(menu, t);
 
         PlayerOrder playerOrder = new PlayerOrder(0,0);
