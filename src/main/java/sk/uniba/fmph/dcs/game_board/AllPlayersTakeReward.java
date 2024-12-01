@@ -50,12 +50,9 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {
-        if (used) {
-            return ActionResult.FAILURE;
-        }
         ArrayList<Effect> menuItems = menuItemsInitiate(player);
-        used = true;
         menu.initiate(menuItems);
         return ActionResult.ACTION_DONE_ALL_PLAYERS_TAKE_A_REWARD;
     }
+
 }
