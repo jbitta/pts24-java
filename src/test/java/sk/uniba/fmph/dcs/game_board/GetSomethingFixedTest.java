@@ -67,11 +67,10 @@ public class GetSomethingFixedTest {
         };
 
         Player p = new Player(null, board);
-        ArrayList<Effect> resources = new ArrayList<>();
-        resources.add(Effect.WOOD);
-        resources.add(Effect.CLAY);
-        GetSomethingFixed getFixed = new GetSomethingFixed(resources);
-        assertEquals(getFixed.performEffect(p, null), ActionResult.ACTION_DONE);
-        assertEquals(getFixed.performEffect(p, null), ActionResult.FAILURE);
+        GetSomethingFixed getFixed = new GetSomethingFixed();
+        assertEquals(getFixed.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
+        assertEquals(getFixed.performEffect(p, Effect.BUILDING), ActionResult.FAILURE);
+        assertEquals(getFixed.performEffect(p, Effect.ONE_TIME_TOOL2), ActionResult.ACTION_DONE);
     }
 }
+
