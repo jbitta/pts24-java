@@ -366,4 +366,26 @@ public class GamePhaseControllerTest {
         assertTrue(makeAllPlayersTakeARewardChoice(1));
         checkStateString("MAKE_ACTION,0/1/None");
     }
+
+    @Test
+    public void test_no_tools_last_action() {
+        mockSetup("pDNN mW");
+        assertTrue(placeFigures(0));
+        checkStateString("MAKE_ACTION,0/0/None");
+
+        mockSetup("mT wN mNN fW");
+        assertTrue(makeAction(0));
+        checkStateString("FEED_TRIBE,0/0/None");
+    }
+
+    @Test
+    public void test_all_players_take_a_reward_last_action() {
+        mockSetup("pDNN mW");
+        assertTrue(placeFigures(0));
+        checkStateString("MAKE_ACTION,0/0/None");
+
+        mockSetup("mR aN mNN fW");
+        assertTrue(makeAction(0));
+        checkStateString("FEED_TRIBE,0/0/None");
+    }
 }
