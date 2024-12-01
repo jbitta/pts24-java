@@ -1,7 +1,5 @@
 package sk.uniba.fmph.dcs.game_phase_controller;
 
-
-
 import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.InterfaceFigureLocation;
 import sk.uniba.fmph.dcs.stone_age.InterfaceNewTurn;

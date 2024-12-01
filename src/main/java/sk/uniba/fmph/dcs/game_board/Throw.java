@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Throw {
     private static final int DICESIDES = 6;
-    private final int desiredResult;    //used for tests, -1 if throw should be random
+    private final int desiredResult; // used for tests, -1 if throw should be random
 
     public Throw(final int desiredResult) {
         this.desiredResult = desiredResult;

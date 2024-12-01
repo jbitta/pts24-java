@@ -10,7 +10,7 @@ public final class CivilizationCardDeck {
     }
 
     public Optional<CivilisationCard> getTop() {
-        return null;
+        return Optional.empty();
     }
 
     public String state() {
