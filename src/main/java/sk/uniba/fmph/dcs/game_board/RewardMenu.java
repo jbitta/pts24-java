@@ -20,8 +20,9 @@ public class RewardMenu implements InterfaceTakeReward {
 
     public final void initiate(final ArrayList<Effect> items) {
         this.items = new ArrayList<>(items);
-
+        this.players = mapInitiate(allPlayers);
     }
+
 
     private Map<PlayerOrder, Player> mapInitiate(final ArrayList<Player> players) {
         Map<PlayerOrder, Player> map = new HashMap<>();
