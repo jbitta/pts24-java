@@ -66,13 +66,10 @@ public class GetChoiceTest {
         };
 
         Player p = new Player(null, board);
-        GetChoice getChoice = new GetChoice(0);
-        assertEquals(getChoice.performEffect(p, Effect.WOOD), ActionResult.FAILURE);
-
-        getChoice = new GetChoice(2);
+        GetChoice getChoice = new GetChoice();
         assertEquals(getChoice.performEffect(p, Effect.FOOD), ActionResult.FAILURE);
         assertEquals(getChoice.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
-        assertEquals(getChoice.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
-        assertEquals(getChoice.performEffect(p, Effect.WOOD), ActionResult.FAILURE);
+        assertEquals(getChoice.performEffect(p, Effect.GOLD), ActionResult.ACTION_DONE);
     }
 }
+
