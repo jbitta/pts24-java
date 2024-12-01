@@ -4,6 +4,8 @@ import sk.uniba.fmph.dcs.stone_age.*;
 import java.util.Collection;
 import java.util.OptionalInt;
 import static org.junit.Assert.assertEquals;
+import java.util.List;
+
 
 public class GetCardTest {
 
