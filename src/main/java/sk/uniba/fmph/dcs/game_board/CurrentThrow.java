@@ -7,7 +7,7 @@ public final class CurrentThrow implements InterfaceToolUse {
     private Effect throwsFor;
     private int throwResult;
 
-    public CurrentThrow() {
+    public CurrentThrow(Throw _throw) {
     } // konstruktor by mal dostat instanciu Throw
 
     public void initiate(final Player player, final Effect effect, final int dices) {
