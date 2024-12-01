@@ -6,7 +6,10 @@ import java.util.Collection;
 import java.util.Optional;
 
 public final class CivilizationCardDeck {
-    public CivilizationCardDeck(final Collection<CivilisationCard> cards) {
+    public CivilizationCardDeck(final Collection<CivilisationCard> cards){
+        this(cards, true);
+    }
+    public CivilizationCardDeck(final Collection<CivilisationCard> cards, final boolean random) {
     }
 
     public Optional<CivilisationCard> getTop() {
