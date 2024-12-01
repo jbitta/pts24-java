@@ -62,9 +62,10 @@ public class GetCardTest {
         };
 
         Player p = new Player(null, board);
-        CivilisationCard c = new CivilisationCard(null, null);
-        GetCard getCard = new GetCard(c);
+        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(new CivilisationCard(null, null)), false);
+        GetCard getCard = new GetCard(deck);
         assertEquals(getCard.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
+
         assertEquals(getCard.performEffect(p, Effect.WOOD), ActionResult.FAILURE);
     }
 }
