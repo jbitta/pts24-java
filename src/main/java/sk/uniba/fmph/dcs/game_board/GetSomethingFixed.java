@@ -5,20 +5,16 @@ import sk.uniba.fmph.dcs.stone_age.Effect;
 import java.util.ArrayList;
 
 public class GetSomethingFixed implements EvaluateCivilisationCardImmediateEffect {
-    private final ArrayList<Effect> resource;
-    private boolean used = false;
 
-    public GetSomethingFixed(final ArrayList<Effect> resource) {
-        this.resource = resource;
-    }
+    public GetSomethingFixed() {}
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {
-        if (used) {
+        if(choice.equals(Effect.BUILDING){
             return ActionResult.FAILURE;
         }
-        used = true;
-        player.playerBoard().giveEffect(resource);
+        player.playerBoard().giveEffect(new ArrayList<>(List.of(choice)));
         return ActionResult.ACTION_DONE;
     }
 }
+
