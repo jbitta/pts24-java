@@ -15,12 +15,15 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
     private static final int GOLDNUMBER = 4;
     private static final int TOOLNUMBER = 5;
     private static final int FIELDNUMBER = 6;
-    private ArrayList<Integer> diceThrows;  //used for tests, null if throws should be random
+    private ArrayList<Integer> diceThrows;
+    private final Throw t;
 
-    public AllPlayersTakeReward(final RewardMenu menu, final ArrayList<Integer> diceThrows) {
+    public AllPlayersTakeReward(final RewardMenu menu, final Throw t) {
         this.menu = menu;
-        this.diceThrows = diceThrows;
+        diceThrows = new ArrayList<>();
+        this.t = t;
     }
+
 
     private static Map<Integer, Effect> resourceMapInitiate() {
         Map<Integer, Effect> map = new HashMap<>();
