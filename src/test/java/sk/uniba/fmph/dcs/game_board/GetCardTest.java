@@ -65,7 +65,8 @@ public class GetCardTest {
         };
 
         Player p = new Player(null, board);
-        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(Optional.Empty()));
+        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(Optional.empty()));
+
 
 
 
