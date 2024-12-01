@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEffect {
     private final RewardMenu menu;
-    private boolean used = false;
     private static final int WOODNUMBER = 1;
+
     private static final int CLAYNUMBER = 2;
     private static final int STONENUMBER = 3;
     private static final int GOLDNUMBER = 4;
