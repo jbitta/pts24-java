@@ -5,8 +5,7 @@ import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import sk.uniba.fmph.dcs.stone_age.ImmediateEffect;
-import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
-import sk.uniba.fmph.dcs.stone_age.Effect;
+import sk.uniba.fmph.dcs.stone_age.EvaluateCivilisationCardImmediateEffect;
 import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
 
 import java.util.ArrayList;
