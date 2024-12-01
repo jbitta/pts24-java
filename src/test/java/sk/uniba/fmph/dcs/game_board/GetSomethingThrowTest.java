@@ -10,7 +10,8 @@ public class GetSomethingThrowTest {
     @Test
     public void testCalculation() {
         Player p = new Player(null, null);
-        CurrentThrow currentThrow = new CurrentThrow();
+        Throw throw1 = new Throw;
+        CurrentThrow currentThrow = new CurrentThrow(throw1);
         GetSomethingThrow getThrow = new GetSomethingThrow(currentThrow);
         assertEquals(getThrow.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE);
 
