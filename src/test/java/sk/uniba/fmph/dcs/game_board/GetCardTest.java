@@ -64,7 +64,8 @@ public class GetCardTest {
         };
 
         Player p = new Player(null, board);
-        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(new CivilisationCard(null, List.of(EndOfGameEffect.SHAMAN))));
+        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(Optional.Empty()));
+
 
 
         GetCard getCard = new GetCard(deck);
