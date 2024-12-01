@@ -38,10 +38,7 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
 
     private ArrayList<Effect> menuItemsInitiate(final Player player) {
         int numberOfPlayers = player.playerOrder().getPlayers();
-        if (diceThrows == null) {
-            Throw t = new Throw();
-            diceThrows = t.throwDice(numberOfPlayers);
-        }
+        diceThrows = t.throwDice(numberOfPlayers);
         Map<Integer, Effect> resourceMap = resourceMapInitiate();
         ArrayList<Effect> menuItems = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
@@ -49,6 +46,7 @@ public class AllPlayersTakeReward implements EvaluateCivilisationCardImmediateEf
         }
         return menuItems;
     }
+
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {
