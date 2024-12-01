@@ -12,8 +12,8 @@ public final class CivilizationCardPlace implements InterfaceFigureLocationInter
     private int requiredResources;
     private ArrayList<PlayerOrder> figures;
 
-    public CivilizationCardPlace(final CivilizationCardDeck deck, final CivilizationCardPlace next,
-            final int requiredResources) {
+    public CivilizationCardPlace(final CivilizationCardDeck deck, final CivilisationCard card, final CivilizationCardPlace next,
+            final int requiredResources, final Map<ImmediateEffect, EvaluateCivilisationCardImmediateEffect> evaluate) {
     } // Zatial takto
 
     @Override
