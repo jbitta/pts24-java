@@ -4,9 +4,13 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.ImmediateEffect;
+import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
+import sk.uniba.fmph.dcs.stone_age.Effect;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 public final class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private int requiredResources;
