@@ -7,6 +7,8 @@ import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.json.JSONObject;
+
 
 public class RewardMenu implements InterfaceTakeReward {
     private ArrayList<Effect> items;
