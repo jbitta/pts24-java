@@ -6,7 +6,7 @@ public class Throw {
     private static final int DICESIDES = 6;
     private final int desiredResult; // used for tests, -1 if throw should be random
 
-    public Throw(){
+    public Throw() {
         this(-1);
     }
     public Throw(final int desiredResult) {
