@@ -10,11 +10,12 @@ public class GetSomethingFixed implements EvaluateCivilisationCardImmediateEffec
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {
-        if(choice.equals(Effect.BUILDING){
+        if(choice.equals(Effect.BUILDING)){
             return ActionResult.FAILURE;
         }
         player.playerBoard().giveEffect(new ArrayList<>(List.of(choice)));
         return ActionResult.ACTION_DONE;
+
     }
 }
 
