@@ -10,6 +10,10 @@ public class Throw {
         this.desiredResult = desiredResult;
     }
 
+public Throw() {
+    this(-1);
+}
+
     public final ArrayList<Integer> throwDice(final int dices) {
         if (desiredResult != -1) {
             ArrayList<Integer> result = new ArrayList<>();
