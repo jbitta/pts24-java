@@ -4,23 +4,20 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 
 public class GetSomethingThrow implements EvaluateCivilisationCardImmediateEffect {
-    private final Effect resource;
-    private final int numberOfDice;
-    private boolean used = false;
+    private final CurrentThrow currentThrow;
+    private final static int NUMBER_OF_DICES = 2;
 
-    public GetSomethingThrow(final Effect resource, final int numberOfDice) {
-        this.numberOfDice = numberOfDice;
-        this.resource = resource;
+    public GetSomethingThrow(final CurrentThrow currentThrow) {
+        this.currentThrow = currentThrow;
     }
 
     @Override
     public final ActionResult performEffect(final Player player, final Effect choice) {
-        if (used) {
+        if (!choice.isResource()) {
             return ActionResult.FAILURE;
         }
-        used = true;
-        CurrentThrow currentThrow = new CurrentThrow();
-        currentThrow.initiate(player, choice, numberOfDice);
-        return ActionResult.ACTION_DONE;
+        currentThrow.initiate(player, choice, NUMBER_OF_DICES);
+        return ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE;
     }
+
 }
