@@ -10,11 +10,13 @@ import java.util.Map;
 
 public class RewardMenu implements InterfaceTakeReward {
     private ArrayList<Effect> items;
-    private final Map<PlayerOrder, Player> players;
+    private Map<PlayerOrder, Player> players;
+    private final ArrayList<Player> allPlayers;
 
     public RewardMenu(final ArrayList<Player> players) {
-        this.players = mapInitiate(players);
+        allplayers = new ArrayList<>(players);
     }
+
 
     public final void initiate(final ArrayList<Effect> items) {
         this.items = new ArrayList<>(items);
