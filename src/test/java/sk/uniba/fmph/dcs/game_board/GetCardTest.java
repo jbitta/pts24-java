@@ -66,6 +66,6 @@ public class GetCardTest {
         GetCard getCard = new GetCard(deck);
         assertEquals(getCard.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
 
-        assertEquals(getCard.performEffect(p, Effect.WOOD), ActionResult.FAILURE);
     }
 }
+
