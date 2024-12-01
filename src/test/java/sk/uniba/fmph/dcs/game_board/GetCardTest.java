@@ -64,7 +64,8 @@ public class GetCardTest {
         };
 
         Player p = new Player(null, board);
-        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(new CivilisationCard(null, null)));
+        CivilizationCardDeck deck = new CivilizationCardDeck(List.of(new CivilisationCard(null, List.of(EndOfGameEffect.SHAMAN))));
+
 
         GetCard getCard = new GetCard(deck);
         assertEquals(getCard.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
