@@ -16,7 +16,7 @@ public class GetSomethingFixed implements EvaluateCivilisationCardImmediateEffec
         if (effect.equals(Effect.BUILDING)) {
             return ActionResult.FAILURE;
         }
-        player.playerBoard().giveEffect(new ArrayList<>(List.of(effect)));
+        player.playerBoard().giveEffect(List.of(effect));
         return ActionResult.ACTION_DONE;
 
     }
