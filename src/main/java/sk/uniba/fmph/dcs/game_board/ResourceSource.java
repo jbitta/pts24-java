@@ -14,7 +14,7 @@ public final class ResourceSource implements InterfaceFigureLocationInternal {
     private int maxFigureColours;
     private ArrayList<PlayerOrder> figures;
 
-    public ResourceSource(final String name, final Effect resource) {
+    public ResourceSource(final String name, final Effect resource, final CurrentThrow currentThrow, final int playerCount) {
     }
 
     @Override

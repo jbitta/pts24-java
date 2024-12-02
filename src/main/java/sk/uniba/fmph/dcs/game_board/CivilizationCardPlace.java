@@ -4,16 +4,20 @@ import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
 import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
+import sk.uniba.fmph.dcs.stone_age.ImmediateEffect;
+import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Optional;
 
 public final class CivilizationCardPlace implements InterfaceFigureLocationInternal {
     private int requiredResources;
     private ArrayList<PlayerOrder> figures;
 
-    public CivilizationCardPlace(final CivilizationCardDeck deck, final CivilizationCardPlace next,
-            final int requiredResources) {
+    public CivilizationCardPlace(final CivilizationCardDeck deck, final Optional<CivilisationCard> card, final CivilizationCardPlace next,
+            final int requiredResources, final Map<ImmediateEffect, EvaluateCivilisationCardImmediateEffect> evaluate) {
     } // Zatial takto
 
     @Override
