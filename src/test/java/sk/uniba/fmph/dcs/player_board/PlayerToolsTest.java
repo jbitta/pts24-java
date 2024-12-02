@@ -15,8 +15,10 @@ public class PlayerToolsTest {
 
         JSONObject state = new JSONObject(playerTools.state());
 
-        assertEquals("[1][]", state.getString("tools"));
-        assertEquals("[false][]", state.getString("usedTools"));
+        assertEquals("[1]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[false]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         playerTools.addTool();
         state = new JSONObject(playerTools.state());
