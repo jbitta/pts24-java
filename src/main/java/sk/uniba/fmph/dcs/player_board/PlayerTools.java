@@ -9,10 +9,10 @@ import java.util.OptionalInt;
 public final class PlayerTools {
     private static final int MAX_TOOL_VALUE = 4;
     private static final int NUMBER_OF_TOOL_PLACES = 3;
-    private ArrayList<Integer> tools;
-    private ArrayList<Boolean> usedTools;
-    private ArrayList<Integer> singleUseTools;
-    private ArrayList<Boolean> usedSingleUseTools;
+    private final ArrayList<Integer> tools;
+    private final ArrayList<Boolean> usedTools;
+    private final ArrayList<Integer> singleUseTools;
+    private final ArrayList<Boolean> usedSingleUseTools;
     private int indexToIncrement = 0;
 
     public PlayerTools() {
