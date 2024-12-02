@@ -12,10 +12,10 @@ public class GetSomethingThrowTest {
         Player p = new Player(null, null);
         Throw throw1 = new Throw();
         CurrentThrow currentThrow = new CurrentThrow(throw1);
-        GetSomethingThrow getThrow = new GetSomethingThrow(currentThrow);
-        assertEquals(getThrow.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE);
-
-        assertEquals(getThrow.performEffect(p, Effect.FOOD), ActionResult.FAILURE);
+        GetSomethingThrow getThrow = new GetSomethingThrow(currentThrow, Effect.WOOD);
+        assertEquals(getThrow.performEffect(p, null), ActionResult.ACTION_DONE_WAIT_FOR_TOOL_USE);
+        GetSomethingThrow getThrowFood = new GetSomethingThrow(currentThrow, Effect.FOOD);
+        assertEquals(getThrowFood.performEffect(p, Effect.FOOD), ActionResult.FAILURE);
     }
 
 }
