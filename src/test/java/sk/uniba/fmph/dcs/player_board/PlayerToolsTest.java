@@ -15,25 +15,31 @@ public class PlayerToolsTest {
 
         JSONObject state = new JSONObject(playerTools.state());
 
-        assertEquals("[1][]", state.getString("tools"));
-        assertEquals("[false][]", state.getString("usedTools"));
+        assertEquals("[1]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[false]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         playerTools.addTool();
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1][]", state.getString("tools"));
-        assertEquals("[false, false][]", state.getString("usedTools"));
+        assertEquals("[1, 1]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[false, false]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         // Tretí nástroj sa pridá
         playerTools.addTool();
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][]", state.getString("tools"));
-        assertEquals("[false, false, false][]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[false, false, false]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         for (int i = 0; i < 9; i++) {
             playerTools.addTool();
         }
 
-        assertThrows(IllegalStateException.class, () -> playerTools.addTool());
+        assertThrows(IllegalStateException.class, playerTools::addTool);        
     }
 
     @Test
@@ -115,37 +121,49 @@ public class PlayerToolsTest {
     public void testState() {
         PlayerTools playerTools = new PlayerTools();
         JSONObject state = new JSONObject(playerTools.state());
-        assertEquals("[][]", state.getString("tools"));
-        assertEquals("[][]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         playerTools.addTool();
         playerTools.addTool();
         playerTools.addTool();
 
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][]", state.getString("tools"));
-        assertEquals("[false, false, false][]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[false, false, false]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         playerTools.addSingleUseTool(3);
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][3]", state.getString("tools"));
-        assertEquals("[false, false, false][false]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[3]", state.getString("singleUseTools"));
+        assertEquals("[false, false, false]", state.getString("usedTools"));
+        assertEquals("[false]", state.getString("usedSingleUseTools"));
 
         playerTools.useTool(3);
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][3]", state.getString("tools"));
-        assertEquals("[false, false, false][true]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[3]", state.getString("singleUseTools"));
+        assertEquals("[false, false, false]", state.getString("usedTools"));
+        assertEquals("[true]", state.getString("usedSingleUseTools"));
 
         playerTools.useTool(0);
         playerTools.useTool(1);
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][3]", state.getString("tools"));
-        assertEquals("[true, true, false][true]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[3]", state.getString("singleUseTools"));
+        assertEquals("[true, true, false]", state.getString("usedTools"));
+        assertEquals("[true]", state.getString("usedSingleUseTools"));
 
         playerTools.newTurn();
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][3]", state.getString("tools"));
-        assertEquals("[false, false, false][true]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[3]", state.getString("singleUseTools"));
+        assertEquals("[false, false, false]", state.getString("usedTools"));
+        assertEquals("[true]", state.getString("usedSingleUseTools"));
     }
 
 }

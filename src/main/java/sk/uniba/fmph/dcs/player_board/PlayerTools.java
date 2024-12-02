@@ -34,13 +34,11 @@ public final class PlayerTools {
         if (tools.size() < NUMBER_OF_TOOL_PLACES) {
             tools.add(1);
             usedTools.add(false);
+        } else if (tools.get(indexToIncrement) < MAX_TOOL_VALUE) {
+            tools.set(indexToIncrement, tools.get(indexToIncrement) + 1);
+            indexToIncrement = (indexToIncrement + 1) % NUMBER_OF_TOOL_PLACES;
         } else {
-            if (tools.get(indexToIncrement) < MAX_TOOL_VALUE) {
-                tools.set(indexToIncrement, tools.get(indexToIncrement) + 1);
-                indexToIncrement = (indexToIncrement + 1) % NUMBER_OF_TOOL_PLACES;
-            } else {
-                throw new IllegalStateException("All tools values equals MAX_TOOL_VALUE");
-            }
+            throw new IllegalStateException("All tools values equals MAX_TOOL_VALUE");
         }
     }
 
@@ -58,23 +56,17 @@ public final class PlayerTools {
             return OptionalInt.empty();
         } else if (tools.size() <= index && index < NUMBER_OF_TOOL_PLACES) {
             return OptionalInt.empty();
-        } else {
-            if (index < NUMBER_OF_TOOL_PLACES) {
-                if (!usedTools.get(index)) {
-                    usedTools.set(index, true);
-                    return OptionalInt.of(tools.get(index));
-                } else {
-                    return OptionalInt.empty();
-                }
-            } else {
-                if (!usedSingleUseTools.get(index - NUMBER_OF_TOOL_PLACES)) {
-                    usedSingleUseTools.set(index - NUMBER_OF_TOOL_PLACES, true);
-                    return OptionalInt.of(singleUseTools.get(index - NUMBER_OF_TOOL_PLACES));
-                } else {
-                    return OptionalInt.empty();
-                }
+        } else if (index < NUMBER_OF_TOOL_PLACES) {
+            if (!usedTools.get(index)) {
+                usedTools.set(index, true);
+                return OptionalInt.of(tools.get(index));
             }
+            return OptionalInt.empty();
+        } else if (!usedSingleUseTools.get(index - NUMBER_OF_TOOL_PLACES)) {
+            usedSingleUseTools.set(index - NUMBER_OF_TOOL_PLACES, true);
+            return OptionalInt.of(singleUseTools.get(index - NUMBER_OF_TOOL_PLACES));
         }
+        return OptionalInt.empty();
     }
 
     public boolean hasSufficientTools(final int goal) {
@@ -100,8 +92,12 @@ public final class PlayerTools {
     }
 
     public String state() {
-        Map<String, String> state = Map.of("tools", tools.toString() + singleUseTools.toString(), "usedTools",
-                usedTools.toString() + usedSingleUseTools.toString());
+        Map<String, String> state = Map.of(
+                "tools", tools.toString(),
+                "singleUseTools", singleUseTools.toString(),
+                "usedTools", usedTools.toString(),
+                "usedSingleUseTools", usedSingleUseTools.toString()
+        );
         return new JSONObject(state).toString();
     }
 }
