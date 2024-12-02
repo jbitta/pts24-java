@@ -16,6 +16,9 @@ public class Throw {
     }
 
     public final ArrayList<Integer> throwDice(final int dices) {
+        if (dices <= 0) {
+            throw new IllegalArgumentException("Number of dice must be greater than 0");
+        }
         if (desiredResult != -1) {
             return new ArrayList<>(Collections.nCopies(dices, desiredResult));
         }
