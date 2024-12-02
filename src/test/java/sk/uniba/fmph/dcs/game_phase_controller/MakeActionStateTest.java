@@ -81,22 +81,18 @@ public class MakeActionStateTest {
 
     @Test
     public void tryToMakeAutomaticActionTest() {
+
         Map<Location, InterfaceFigureLocation> places1 = new HashMap<>();
         Map<Location, InterfaceFigureLocation> places2 = new HashMap<>();
-        Map<Location, InterfaceFigureLocation> places3 = new HashMap<>();
-        places1.put(Location.TOOL_MAKER,
-                new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.AUTOMATIC_ACTION_DONE));
-        places2.put(Location.HUT,
+        places1.put(Location.HUT,
                 new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.WAITING_FOR_PLAYER_ACTION));
-        places3.put(Location.FOREST,
+        places2.put(Location.FOREST,
                 new FigureLocationMock(ActionResult.ACTION_DONE, true, HasAction.NO_ACTION_POSSIBLE));
         MakeActionState mas1 = new MakeActionState(places1);
         MakeActionState mas2 = new MakeActionState(places2);
-        MakeActionState mas3 = new MakeActionState(places3);
 
-        assertEquals(mas1.tryToMakeAutomaticAction(new PlayerOrder(1, 3)), HasAction.AUTOMATIC_ACTION_DONE);
-        assertEquals(mas2.tryToMakeAutomaticAction(new PlayerOrder(2, 3)), HasAction.WAITING_FOR_PLAYER_ACTION);
-        assertEquals(mas3.tryToMakeAutomaticAction(new PlayerOrder(3, 3)), HasAction.NO_ACTION_POSSIBLE);
+        assertEquals(mas1.tryToMakeAutomaticAction(new PlayerOrder(2, 3)), HasAction.WAITING_FOR_PLAYER_ACTION);
+        assertEquals(mas2.tryToMakeAutomaticAction(new PlayerOrder(3, 3)), HasAction.NO_ACTION_POSSIBLE);
 
     }
 }

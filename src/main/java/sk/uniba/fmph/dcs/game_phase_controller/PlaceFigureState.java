@@ -66,7 +66,7 @@ public final class PlaceFigureState implements InterfaceGamePhaseState {
     public HasAction tryToMakeAutomaticAction(final PlayerOrder player) {
         for (Location location : places.keySet()) {
             if (places.get(location).tryToPlaceFigures(player, 1) != HasAction.NO_ACTION_POSSIBLE) {
-                return places.get(location).tryToPlaceFigures(player, 1);
+                return HasAction.WAITING_FOR_PLAYER_ACTION;
             }
         }
         return HasAction.NO_ACTION_POSSIBLE;
