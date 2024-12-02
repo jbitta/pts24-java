@@ -34,13 +34,11 @@ public final class PlayerTools {
         if (tools.size() < NUMBER_OF_TOOL_PLACES) {
             tools.add(1);
             usedTools.add(false);
+        } else if (tools.get(indexToIncrement) < MAX_TOOL_VALUE) {
+            tools.set(indexToIncrement, tools.get(indexToIncrement) + 1);
+            indexToIncrement = (indexToIncrement + 1) % NUMBER_OF_TOOL_PLACES;
         } else {
-            if (tools.get(indexToIncrement) < MAX_TOOL_VALUE) {
-                tools.set(indexToIncrement, tools.get(indexToIncrement) + 1);
-                indexToIncrement = (indexToIncrement + 1) % NUMBER_OF_TOOL_PLACES;
-            } else {
-                throw new IllegalStateException("All tools values equals MAX_TOOL_VALUE");
-            }
+            throw new IllegalStateException("All tools values equals MAX_TOOL_VALUE");
         }
     }
 
