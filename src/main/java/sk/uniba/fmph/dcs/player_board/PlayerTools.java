@@ -58,23 +58,17 @@ public final class PlayerTools {
             return OptionalInt.empty();
         } else if (tools.size() <= index && index < NUMBER_OF_TOOL_PLACES) {
             return OptionalInt.empty();
-        } else {
-            if (index < NUMBER_OF_TOOL_PLACES) {
-                if (!usedTools.get(index)) {
-                    usedTools.set(index, true);
-                    return OptionalInt.of(tools.get(index));
-                } else {
-                    return OptionalInt.empty();
-                }
-            } else {
-                if (!usedSingleUseTools.get(index - NUMBER_OF_TOOL_PLACES)) {
-                    usedSingleUseTools.set(index - NUMBER_OF_TOOL_PLACES, true);
-                    return OptionalInt.of(singleUseTools.get(index - NUMBER_OF_TOOL_PLACES));
-                } else {
-                    return OptionalInt.empty();
-                }
+        } else if (index < NUMBER_OF_TOOL_PLACES) {
+            if (!usedTools.get(index)) {
+                usedTools.set(index, true);
+                return OptionalInt.of(tools.get(index));
             }
+            return OptionalInt.empty();
+        } else if (!usedSingleUseTools.get(index - NUMBER_OF_TOOL_PLACES)) {
+            usedSingleUseTools.set(index - NUMBER_OF_TOOL_PLACES, true);
+            return OptionalInt.of(singleUseTools.get(index - NUMBER_OF_TOOL_PLACES));
         }
+        return OptionalInt.empty();
     }
 
     public boolean hasSufficientTools(final int goal) {
