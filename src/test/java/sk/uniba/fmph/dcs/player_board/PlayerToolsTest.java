@@ -30,8 +30,10 @@ public class PlayerToolsTest {
         // Tretí nástroj sa pridá
         playerTools.addTool();
         state = new JSONObject(playerTools.state());
-        assertEquals("[1, 1, 1][]", state.getString("tools"));
-        assertEquals("[false, false, false][]", state.getString("usedTools"));
+        assertEquals("[1, 1, 1]", state.getString("tools"));
+        assertEquals("[]", state.getString("singleUseTools"));
+        assertEquals("[false, false, false]", state.getString("usedTools"));
+        assertEquals("[]", state.getString("usedSingleUseTools"));
 
         for (int i = 0; i < 9; i++) {
             playerTools.addTool();
