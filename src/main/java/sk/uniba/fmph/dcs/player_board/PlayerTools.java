@@ -100,8 +100,12 @@ public final class PlayerTools {
     }
 
     public String state() {
-        Map<String, String> state = Map.of("tools", tools.toString() + singleUseTools.toString(), "usedTools",
-                usedTools.toString() + usedSingleUseTools.toString());
+        Map<String, String> state = Map.of(
+                "tools", tools.toString(),
+                "singleUseTools", singleUseTools.toString(),
+                "usedTools", usedTools.toString(),
+                "usedSingleUseTools", usedSingleUseTools.toString()
+        );
         return new JSONObject(state).toString();
     }
 }
