@@ -58,4 +58,9 @@ public final class PlaceOnHutAdaptor implements InterfaceFigureLocationInternal 
     public boolean newTurn() {
         return hut.newTurn();
     }
+
+    @Override
+    public String state() {
+        return "";
+    }
 }

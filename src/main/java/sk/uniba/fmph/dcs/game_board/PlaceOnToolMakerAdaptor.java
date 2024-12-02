@@ -58,4 +58,9 @@ public final class PlaceOnToolMakerAdaptor implements InterfaceFigureLocationInt
     public boolean newTurn() {
         return toolMaker.newTurn();
     }
+
+    @Override
+    public String state() {
+        return "";
+    }
 }

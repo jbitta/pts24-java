@@ -51,6 +51,7 @@ public final class CivilizationCardPlace implements InterfaceFigureLocationInter
         return false;
     }
 
+    @Override
     public String state() {
         return "";
     }
