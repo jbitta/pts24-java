@@ -39,7 +39,7 @@ public class PlayerToolsTest {
             playerTools.addTool();
         }
 
-        assertThrows(IllegalStateException.class, () -> playerTools.addTool());
+        assertThrows(IllegalStateException.class, playerTools::addTool);        
     }
 
     @Test
