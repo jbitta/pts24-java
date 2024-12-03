@@ -99,7 +99,7 @@ public final class PlayerTools {
         return false;
     }
 
-    public String state(
+    public String state() {
         Map<String, String> state = Map.of(
                 "tools", tools.toString(),
                 "singleUseTools", singleUseTools.toString(),
