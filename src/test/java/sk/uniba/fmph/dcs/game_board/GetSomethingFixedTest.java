@@ -67,9 +67,11 @@ public class GetSomethingFixedTest {
         };
 
         Player p = new Player(null, board);
-        GetSomethingFixed getFixed = new GetSomethingFixed();
-        assertEquals(getFixed.performEffect(p, Effect.WOOD), ActionResult.ACTION_DONE);
-        assertEquals(getFixed.performEffect(p, Effect.BUILDING), ActionResult.FAILURE);
-        assertEquals(getFixed.performEffect(p, Effect.ONE_TIME_TOOL2), ActionResult.ACTION_DONE);
+        GetSomethingFixed getFixed = new GetSomethingFixed(Effect.WOOD);
+        assertEquals(getFixed.performEffect(p, null), ActionResult.ACTION_DONE);
+        GetSomethingFixed getFixedBuilding = new GetSomethingFixed(Effect.BUILDING);
+        assertEquals(getFixedBuilding.performEffect(p, null), ActionResult.FAILURE);
+        GetSomethingFixed getFixedOneTimeTool = new GetSomethingFixed(Effect.ONE_TIME_TOOL2);
+        assertEquals(getFixedOneTimeTool.performEffect(p, null), ActionResult.ACTION_DONE);
     }
 }

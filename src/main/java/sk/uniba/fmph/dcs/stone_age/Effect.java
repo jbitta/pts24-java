@@ -1,7 +1,7 @@
 package sk.uniba.fmph.dcs.stone_age;
 
 public enum Effect {
-    FOOD, WOOD, CLAY, STONE, GOLD, TOOL, FIELD, BUILDING, ONE_TIME_TOOL2, ONE_TIME_TOOL3, ONE_TIME_TOOL4;
+    FOOD, WOOD, CLAY, STONE, GOLD, TOOL, FIELD, BUILDING, ONE_TIME_TOOL2, ONE_TIME_TOOL3, ONE_TIME_TOOL4, POINT;
 
     private static final int FOOD_POINTS = 2;
     private static final int WOOD_POINTS = 3;

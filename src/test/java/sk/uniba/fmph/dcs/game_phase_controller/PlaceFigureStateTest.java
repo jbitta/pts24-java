@@ -20,8 +20,6 @@ public class PlaceFigureStateTest {
         @Override
         public HasAction tryToPlaceFigures(PlayerOrder player, int count) {
             if (player.getOrder() == 1) {
-                return HasAction.AUTOMATIC_ACTION_DONE;
-            } else if (player.getOrder() == 2) {
                 return HasAction.WAITING_FOR_PLAYER_ACTION;
             } else {
                 return HasAction.NO_ACTION_POSSIBLE;
@@ -65,9 +63,8 @@ public class PlaceFigureStateTest {
         Map<Location, InterfaceFigureLocation> places = new HashMap<>();
         places.put(Location.TOOL_MAKER, new FigureLocationMock());
         PlaceFigureState pfs = new PlaceFigureState(places);
-        assertEquals(pfs.tryToMakeAutomaticAction(new PlayerOrder(1, 3)), HasAction.AUTOMATIC_ACTION_DONE);
-        assertEquals(pfs.tryToMakeAutomaticAction(new PlayerOrder(2, 3)), HasAction.WAITING_FOR_PLAYER_ACTION);
-        assertEquals(pfs.tryToMakeAutomaticAction(new PlayerOrder(3, 3)), HasAction.NO_ACTION_POSSIBLE);
+        assertEquals(pfs.tryToMakeAutomaticAction(new PlayerOrder(1, 2)), HasAction.WAITING_FOR_PLAYER_ACTION);
+        assertEquals(pfs.tryToMakeAutomaticAction(new PlayerOrder(2, 2)), HasAction.NO_ACTION_POSSIBLE);
 
     }
 

@@ -58,4 +58,9 @@ public final class PlaceOnFieldsAdaptor implements InterfaceFigureLocationIntern
     public boolean newTurn() {
         return fields.newTurn();
     }
+
+    @Override
+    public String state() {
+        return "";
+    }
 }
