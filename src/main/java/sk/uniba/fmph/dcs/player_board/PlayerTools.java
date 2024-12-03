@@ -22,6 +22,14 @@ public final class PlayerTools {
         this.usedSingleUseTools = new ArrayList<>();
     }
 
+    public int getToolCount() {
+        int result = 0;
+        for (int x : tools) {
+            result += x;
+        }
+        return result;
+    }
+
     public void newTurn() {
         for (int i = 0; i < usedTools.size(); i++) {
             if (usedTools.get(i)) {
@@ -92,12 +100,8 @@ public final class PlayerTools {
     }
 
     public String state() {
-        Map<String, String> state = Map.of(
-                "tools", tools.toString(),
-                "singleUseTools", singleUseTools.toString(),
-                "usedTools", usedTools.toString(),
-                "usedSingleUseTools", usedSingleUseTools.toString()
-        );
+        Map<String, String> state = Map.of("tools", tools.toString(), "singleUseTools", singleUseTools.toString(),
+                "usedTools", usedTools.toString(), "usedSingleUseTools", usedSingleUseTools.toString());
         return new JSONObject(state).toString();
     }
 }
