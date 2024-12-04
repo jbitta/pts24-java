@@ -2,17 +2,20 @@ package sk.uniba.fmph.dcs.player_board;
 
 import org.json.JSONObject;
 import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
 import sk.uniba.fmph.dcs.stone_age.InterfaceGetState;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
-import java.util.OptionalInt;
 
 public final class PlayerBoard implements InterfaceGetState {
+    public static final int POINTS_TO_TAKE_IF_TRIBE_IS_NOT_FED = 10;
+    private static final int ONE_TIME_TOOL2_STRENGTH = 2;
+    private static final int ONE_TIME_TOOL3_STRENGTH = 3;
+    private static final int ONE_TIME_TOOL4_STRENGTH = 4;
+
     private int points;
     private int houses;
-    private static final int POINTS_TO_TEKE_IF_TRIBE_IS_NOT_FED = -10;
     private final PlayerResourcesAndFood playerResourcesAndFood;
     private final TribeFedStatus tribeFedStatus;
     private final PlayerFigures playerFigures;
@@ -53,28 +56,68 @@ public final class PlayerBoard implements InterfaceGetState {
 
     @Override
     public String state() {
-        Map<String, String> state = Map.of("points", String.valueOf(points), "houses", String.valueOf(houses));
+        Map<String, String> state = Map.of(
+                "points", String.valueOf(points),
+                "houses", String.valueOf(houses),
+                "playerResourcesAndFood", playerResourcesAndFood.state(),
+                "tribeFedStatus", tribeFedStatus.state(),
+                "playerFigures", playerFigures.state(),
+                "playerCivilisationCards", playerCivilisationCards.state(),
+                "playerTools", playerTools.state()
+        );
         return new JSONObject(state).toString();
     }
 
-    public boolean feedTribeIfEnoughFood() {
-        return tribeFedStatus.feedTribeIfEnoughFood();
+    public PlayerResourcesAndFood playerResourcesAndFood() {
+        return this.playerResourcesAndFood;
     }
 
-    public boolean feedTribe(final Collection<Effect> resources) {
-        return tribeFedStatus.feedTribe(resources);
+    public TribeFedStatus tribeFedStatus() {
+        return this.tribeFedStatus;
     }
 
-    public boolean doNotFeedThisTurn() {
-        boolean ret = tribeFedStatus.setTribeFed();
-        if (!ret) {
-            points += POINTS_TO_TEKE_IF_TRIBE_IS_NOT_FED;
+    public PlayerFigures playerFigures() {
+        return this.playerFigures;
+    }
+
+    public  PlayerCivilisationCards playerCivilisationCards() {
+        return this.playerCivilisationCards;
+    }
+
+    public  PlayerTools playerTools() {
+        return this.playerTools;
+    }
+
+    public void giveEffect(final Collection<Effect> stuff) {
+        for (Effect effect : stuff) {
+            switch (effect) {
+                case FOOD, WOOD, CLAY, STONE, GOLD:
+                    playerResourcesAndFood.giveResources(List.of(effect));
+                    break;
+                case TOOL:
+                    playerTools.addTool();
+                    break;
+                case FIELD:
+                    tribeFedStatus.addField();
+                    break;
+                case BUILDING:
+                    addHouse();
+                    break;
+                case ONE_TIME_TOOL2:
+                    playerTools.addSingleUseTool(ONE_TIME_TOOL2_STRENGTH);
+                    break;
+                case ONE_TIME_TOOL3:
+                    playerTools.addSingleUseTool(ONE_TIME_TOOL3_STRENGTH);
+                    break;
+                case ONE_TIME_TOOL4:
+                    playerTools.addSingleUseTool(ONE_TIME_TOOL4_STRENGTH);
+                    break;
+                case POINT:
+                    addPoints(1);
+                default:
+                    throw new IllegalArgumentException(String.format("Invalid effect '%s'.", effect));
+            }
         }
-        return ret;
-    }
-
-    public boolean isTribeFed() {
-        return tribeFedStatus.isTribeFed();
     }
 
     public void newTurn() {
@@ -83,45 +126,7 @@ public final class PlayerBoard implements InterfaceGetState {
         playerFigures.newTurn();
     }
 
-    public void giveEffect(final Collection<Effect> stuff) {
-        playerResourcesAndFood.giveResources(stuff);
-    }
-
-    public void giveEndOfGameEffect(final Collection<EndOfGameEffect> stuff) {
-        playerCivilisationCards.addEndOfGameEffects(stuff);
-    }
-
-    public boolean takeResources(final Collection<Effect> stuff) {
-        return playerResourcesAndFood.takeResources(stuff);
-    }
-
-    public boolean takeFigures(final int count) {
-        return playerFigures.takeFigures(count);
-    }
-
-    public void giveFigures(final int count) {
-        while (!playerFigures.hasFigures(count)) {
-            playerFigures.addNewFigure();
-        }
-    }
-
-    public boolean hasFigures(final int count) {
-        return playerFigures.hasFigures(count);
-    }
-
-    public boolean hasSufficientTools(final int goal) {
-        return playerTools.hasSufficientTools(goal);
-    }
-
-    public OptionalInt useTool(final int idx) {
-        return playerTools.useTool(idx);
-    }
-
     public void takePoints(final int points) {
         addPoints(-points);
-    }
-
-    public void givePoints(final int points) {
-        addPoints(points);
     }
 }

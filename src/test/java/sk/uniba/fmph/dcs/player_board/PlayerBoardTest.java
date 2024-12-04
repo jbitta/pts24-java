@@ -18,7 +18,7 @@ public class PlayerBoardTest {
         playerBoard.addPoints(5);
 
         JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("15", state.getJSONObject("points").toString());
+        assertEquals("15", state.getString("points"));
     }
 
     @Test
@@ -52,28 +52,6 @@ public class PlayerBoardTest {
     }
 
     @Test
-    public void testFeedTribeIfEnoughFood() {
-        PlayerResourcesAndFood playerResourcesAndFood = new PlayerResourcesAndFood();
-        playerResourcesAndFood.giveResources(List.of(Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD));
-        PlayerFigures playerFigures = new PlayerFigures();
-        TribeFedStatus tribeFedStatus = new TribeFedStatus(playerResourcesAndFood, playerFigures);
-        PlayerBoard playerBoard = new PlayerBoard(playerResourcesAndFood, new PlayerCivilisationCards(), playerFigures,
-                tribeFedStatus, new PlayerTools());
-        assertTrue(playerBoard.feedTribeIfEnoughFood());
-
-    }
-
-    @Test
-    public void testDoNotFeedThisTurn() {
-        PlayerBoard playerBoard = new PlayerBoard();
-        assertFalse(playerBoard.doNotFeedThisTurn());
-
-        JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("-10", state.getJSONObject("points").toString());
-
-    }
-
-    @Test
     public void testNewTurn() {
         PlayerResourcesAndFood playerResourcesAndFood = new PlayerResourcesAndFood();
         playerResourcesAndFood.giveResources(List.of(Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD, Effect.FOOD));
@@ -94,117 +72,11 @@ public class PlayerBoardTest {
     }
 
     @Test
-    public void testGiveEffect() {
-        PlayerResourcesAndFood playerResourcesAndFood = new PlayerResourcesAndFood();
-        PlayerBoard playerBoard = new PlayerBoard(playerResourcesAndFood, new PlayerCivilisationCards(),
-                new PlayerFigures(), new TribeFedStatus(playerResourcesAndFood, new PlayerFigures()),
-                new PlayerTools());
-
-        assertFalse(playerResourcesAndFood.hasResources(List.of(Effect.WOOD)));
-        playerBoard.giveEffect(List.of(Effect.WOOD));
-        assertTrue(playerResourcesAndFood.hasResources(List.of(Effect.WOOD)));
-
-    }
-
-    @Test
-    public void testGiveEndOfGameEffect() {
-        PlayerCivilisationCards playerCards = new PlayerCivilisationCards();
-        PlayerBoard playerBoard = new PlayerBoard(new PlayerResourcesAndFood(), playerCards, new PlayerFigures(),
-                new TribeFedStatus(new PlayerResourcesAndFood(), new PlayerFigures()), new PlayerTools());
-
-        playerBoard.giveEndOfGameEffect(List.of(EndOfGameEffect.FARMER));
-        JSONObject state = new JSONObject(playerCards.state());
-        assertEquals("1", state.getJSONObject("endOfGameEffects").getString("FARMER"));
-    }
-
-    @Test
-    public void testTakeResources() {
-        PlayerResourcesAndFood playerResourcesAndFood = new PlayerResourcesAndFood();
-        PlayerBoard playerBoard = new PlayerBoard(playerResourcesAndFood, new PlayerCivilisationCards(),
-                new PlayerFigures(), new TribeFedStatus(playerResourcesAndFood, new PlayerFigures()),
-                new PlayerTools());
-        assertFalse(playerResourcesAndFood.takeResources(List.of(Effect.WOOD)));
-        assertFalse(playerBoard.takeResources(List.of(Effect.WOOD)));
-    }
-
-    @Test
-    public void testTakeFigures() {
-        PlayerFigures playerFigures = new PlayerFigures();
-        PlayerBoard playerBoard = new PlayerBoard(new PlayerResourcesAndFood(), new PlayerCivilisationCards(),
-                playerFigures, new TribeFedStatus(new PlayerResourcesAndFood(), new PlayerFigures()),
-                new PlayerTools());
-        assertTrue(playerFigures.takeFigures(1));
-        assertTrue(playerBoard.takeFigures(1));
-
-    }
-
-    @Test
-    public void testGiveFigures() {
-        PlayerFigures playerFigures = new PlayerFigures();
-        PlayerBoard playerBoard = new PlayerBoard(new PlayerResourcesAndFood(), new PlayerCivilisationCards(),
-                playerFigures, new TribeFedStatus(new PlayerResourcesAndFood(), new PlayerFigures()),
-                new PlayerTools());
-        assertEquals(5, playerFigures.getTotalFigures());
-        playerBoard.giveFigures(2);
-        assertEquals(7, playerFigures.getTotalFigures());
-    }
-
-    @Test
-    public void testHasFigures() {
-        PlayerFigures playerFigures = new PlayerFigures();
-        PlayerBoard playerBoard = new PlayerBoard(new PlayerResourcesAndFood(), new PlayerCivilisationCards(),
-                playerFigures, new TribeFedStatus(new PlayerResourcesAndFood(), new PlayerFigures()),
-                new PlayerTools());
-        assertEquals(playerFigures.hasFigures(5), playerBoard.hasFigures(5));
-
-    }
-
-    @Test
-    public void testHasSufficientTools() {
-        PlayerTools playerTools = new PlayerTools();
-        PlayerBoard playerBoard = new PlayerBoard(new PlayerResourcesAndFood(), new PlayerCivilisationCards(),
-                new PlayerFigures(), new TribeFedStatus(new PlayerResourcesAndFood(), new PlayerFigures()),
-                playerTools);
-        playerTools.addTool();
-        playerTools.addTool();
-
-        assertTrue(playerTools.hasSufficientTools(2));
-        assertTrue(playerBoard.hasSufficientTools(2));
-        assertFalse(playerTools.hasSufficientTools(3));
-        assertFalse(playerBoard.hasSufficientTools(3));
-    }
-
-    @Test
-    public void testUseTool() {
-        PlayerTools playerTools = new PlayerTools();
-        PlayerBoard playerBoard = new PlayerBoard(new PlayerResourcesAndFood(), new PlayerCivilisationCards(),
-                new PlayerFigures(), new TribeFedStatus(new PlayerResourcesAndFood(), new PlayerFigures()),
-                playerTools);
-        playerTools.addTool();
-        playerTools.addTool();
-        assertTrue(playerTools.useTool(0).isPresent());
-        assertFalse(playerTools.useTool(0).isPresent());
-
-        assertTrue(playerBoard.useTool(1).isPresent());
-        assertFalse(playerBoard.useTool(1).isPresent());
-
-    }
-
-    @Test
     public void testTakePoints() {
         PlayerBoard playerBoard = new PlayerBoard();
-        playerBoard.takePoints(10);
+        playerBoard.takePoints(PlayerBoard.POINTS_TO_TAKE_IF_TRIBE_IS_NOT_FED);
 
         JSONObject state = new JSONObject(playerBoard.state());
         assertEquals("-10", state.getJSONObject("points").toString());
-    }
-
-    @Test
-    public void testGivePoints() {
-        PlayerBoard playerBoard = new PlayerBoard();
-        playerBoard.givePoints(15);
-
-        JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("15", state.getJSONObject("points").toString());
     }
 }

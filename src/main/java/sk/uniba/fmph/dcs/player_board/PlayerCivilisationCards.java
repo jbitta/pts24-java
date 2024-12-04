@@ -36,70 +36,21 @@ public final class PlayerCivilisationCards {
         for (EndOfGameEffect effect : effects) {
             switch (effect) {
             case FARMER:
-                endOfGameEffects.put(EndOfGameEffect.FARMER, endOfGameEffects.get(EndOfGameEffect.FARMER) + 1);
-                break;
             case TOOL_MAKER:
-                endOfGameEffects.put(EndOfGameEffect.TOOL_MAKER, endOfGameEffects.get(EndOfGameEffect.TOOL_MAKER) + 1);
-                break;
             case BUILDER:
-                endOfGameEffects.put(EndOfGameEffect.BUILDER, endOfGameEffects.get(EndOfGameEffect.BUILDER) + 1);
-                break;
             case SHAMAN:
-                endOfGameEffects.put(EndOfGameEffect.SHAMAN, endOfGameEffects.get(EndOfGameEffect.SHAMAN) + 1);
+                endOfGameEffects.put(effect, endOfGameEffects.get(effect) + 1);
                 break;
             case MEDICINE:
-                if (endOfGameEffects.get(EndOfGameEffect.MEDICINE) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.MEDICINE, endOfGameEffects.get(EndOfGameEffect.MEDICINE) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case ART:
-                if (endOfGameEffects.get(EndOfGameEffect.ART) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.ART, endOfGameEffects.get(EndOfGameEffect.ART) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case MUSIC:
-                if (endOfGameEffects.get(EndOfGameEffect.MUSIC) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.MUSIC, endOfGameEffects.get(EndOfGameEffect.MUSIC) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case WRITING:
-                if (endOfGameEffects.get(EndOfGameEffect.WRITING) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.WRITING, endOfGameEffects.get(EndOfGameEffect.WRITING) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case SUNDIAL:
-                if (endOfGameEffects.get(EndOfGameEffect.SUNDIAL) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.SUNDIAL, endOfGameEffects.get(EndOfGameEffect.SUNDIAL) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case POTTERY:
-                if (endOfGameEffects.get(EndOfGameEffect.POTTERY) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.POTTERY, endOfGameEffects.get(EndOfGameEffect.POTTERY) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case TRANSPORT:
-                if (endOfGameEffects.get(EndOfGameEffect.TRANSPORT) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.TRANSPORT,
-                            endOfGameEffects.get(EndOfGameEffect.TRANSPORT) + 1);
-                } else {
-                    throw new IllegalArgumentException("Cannot have more than 2 " + effect);
-                }
-                break;
             case WEAVING:
-                if (endOfGameEffects.get(EndOfGameEffect.WEAVING) < 2) {
-                    endOfGameEffects.put(EndOfGameEffect.WEAVING, endOfGameEffects.get(EndOfGameEffect.WEAVING) + 1);
+                if (endOfGameEffects.get(effect) < 2) {
+                    endOfGameEffects.put(effect, endOfGameEffects.get(effect) + 1);
                 } else {
                     throw new IllegalArgumentException("Cannot have more than 2 " + effect);
                 }
