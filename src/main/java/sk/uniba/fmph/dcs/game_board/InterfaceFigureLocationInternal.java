@@ -17,4 +17,6 @@ public interface InterfaceFigureLocationInternal {
     HasAction tryToMakeAction(Player player);
 
     boolean newTurn();
+
+    String state();
 }

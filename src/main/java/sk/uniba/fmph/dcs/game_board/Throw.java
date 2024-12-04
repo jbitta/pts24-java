@@ -1,6 +1,7 @@
 package sk.uniba.fmph.dcs.game_board;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Throw {
     private static final int DICESIDES = 6;
@@ -9,15 +10,17 @@ public class Throw {
     public Throw() {
         this(-1);
     }
+
     public Throw(final int desiredResult) {
         this.desiredResult = desiredResult;
     }
 
     public final ArrayList<Integer> throwDice(final int dices) {
+        if (dices < 0) {
+            throw new IllegalArgumentException("Number of dice must be equal or greater than 0");
+        }
         if (desiredResult != -1) {
-            ArrayList<Integer> result = new ArrayList<>();
-            result.add(desiredResult);
-            return result;
+            return new ArrayList<>(Collections.nCopies(dices, desiredResult));
         }
         ArrayList<Integer> result = new ArrayList<>();
         for (int i = 0; i < dices; i++) {

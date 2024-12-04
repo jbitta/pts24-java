@@ -103,7 +103,8 @@ public final class BuildingTile implements InterfaceFigureLocationInternal {
         return buildingStack.isEmpty();
     }
 
-    String state() {
+    @Override
+    public String state() {
         String buildingStateOrNull = "{}";
         if (!buildingStack.isEmpty()) {
             buildingStateOrNull = building.state();

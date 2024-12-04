@@ -48,6 +48,7 @@ public final class ResourceSource implements InterfaceFigureLocationInternal {
         return false;
     }
 
+    @Override
     public String state() {
         return "";
     }
