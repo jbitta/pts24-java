@@ -21,7 +21,6 @@ public final class PlayerTools {
         this.singleUseTools = new ArrayList<>();
         this.usedSingleUseTools = new ArrayList<>();
     }
-  
     public int getToolCount() {
         int result = 0;
         for (int x : tools) {
