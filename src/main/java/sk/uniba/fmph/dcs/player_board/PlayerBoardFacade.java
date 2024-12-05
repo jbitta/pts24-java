@@ -16,6 +16,10 @@ public final class PlayerBoardFacade implements InterfaceFeedTribe, InterfaceNew
         this.playerBoard = new PlayerBoard();
     }
 
+    public PlayerBoardFacade(final PlayerBoard playerBoard) {
+        this.playerBoard = playerBoard;
+    }
+
     @Override
     public boolean feedTribeIfEnoughFood() {
         return playerBoard.tribeFedStatus().feedTribeIfEnoughFood();
