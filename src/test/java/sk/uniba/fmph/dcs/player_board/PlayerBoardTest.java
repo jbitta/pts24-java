@@ -2,7 +2,6 @@ package sk.uniba.fmph.dcs.player_board;
 
 import org.json.JSONObject;
 import sk.uniba.fmph.dcs.stone_age.Effect;
-import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
 import org.junit.Test;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class PlayerBoardTest {
         playerBoard.addHouse();
 
         JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("2", state.getJSONObject("houses").toString());
+        assertEquals("2", state.getString("houses"));
     }
 
     @Test
@@ -37,7 +36,7 @@ public class PlayerBoardTest {
         playerBoard.addEndOfGamePoints();
 
         JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("0", state.getJSONObject("points").toString());
+        assertEquals("0", state.getString("points"));
     }
 
     @Test
@@ -47,8 +46,8 @@ public class PlayerBoardTest {
         playerBoard.addHouse();
 
         JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("1", state.getJSONObject("houses").toString());
-        assertEquals("50", state.getJSONObject("points").toString());
+        assertEquals("1", state.getString("houses"));
+        assertEquals("50", state.getString("points"));
     }
 
     @Test
@@ -66,6 +65,10 @@ public class PlayerBoardTest {
         assertFalse(playerTools.useTool(0).isPresent());
 
         playerBoard.newTurn();
+        assertTrue(tribeFedStatus.feedTribeIfEnoughFood());
+        playerBoard.newTurn();
+        assertTrue(tribeFedStatus.feedTribeIfEnoughFood());
+        playerBoard.newTurn();
         assertFalse(tribeFedStatus.feedTribeIfEnoughFood());
         assertTrue(playerTools.useTool(0).isPresent());
 
@@ -77,6 +80,6 @@ public class PlayerBoardTest {
         playerBoard.takePoints(PlayerBoard.POINTS_TO_TAKE_IF_TRIBE_IS_NOT_FED);
 
         JSONObject state = new JSONObject(playerBoard.state());
-        assertEquals("-10", state.getJSONObject("points").toString());
+        assertEquals("-10", state.getString("points"));
     }
 }

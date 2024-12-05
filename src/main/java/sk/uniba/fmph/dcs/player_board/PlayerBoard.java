@@ -114,6 +114,7 @@ public final class PlayerBoard implements InterfaceGetState {
                     break;
                 case POINT:
                     addPoints(1);
+                    break;
                 default:
                     throw new IllegalArgumentException(String.format("Invalid effect '%s'.", effect));
             }

@@ -18,22 +18,26 @@ public final class PlayerBoardFacade implements InterfaceFeedTribe, InterfaceNew
 
     @Override
     public boolean feedTribeIfEnoughFood() {
-        return playerBoard.feedTribeIfEnoughFood();
+        return playerBoard.tribeFedStatus().feedTribeIfEnoughFood();
     }
 
     @Override
     public boolean feedTribe(final Collection<Effect> resources) {
-        return playerBoard.feedTribe(resources);
+        return playerBoard.tribeFedStatus().feedTribe(resources);
     }
 
     @Override
     public boolean doNotFeedThisTurn() {
-        return playerBoard.doNotFeedThisTurn();
+        boolean ret = playerBoard.tribeFedStatus().setTribeFed();
+        if (!ret) {
+            playerBoard.takePoints(PlayerBoard.POINTS_TO_TAKE_IF_TRIBE_IS_NOT_FED);
+        }
+        return ret;
     }
 
     @Override
     public boolean isTribeFed() {
-        return playerBoard.isTribeFed();
+        return playerBoard.tribeFedStatus().isTribeFed();
     }
 
     @Override
@@ -48,37 +52,38 @@ public final class PlayerBoardFacade implements InterfaceFeedTribe, InterfaceNew
 
     @Override
     public void giveEndOfGameEffect(final Collection<EndOfGameEffect> stuff) {
-        playerBoard.giveEndOfGameEffect(stuff);
+        playerBoard.playerCivilisationCards().addEndOfGameEffects(stuff);
     }
 
     @Override
     public boolean takeResources(final Collection<Effect> stuff) {
-        return playerBoard.takeResources(stuff);
+        return playerBoard.playerResourcesAndFood().takeResources(stuff);
     }
 
     @Override
     public boolean takeFigures(final int count) {
-        return playerBoard.takeFigures(count);
+        return playerBoard.playerFigures().takeFigures(count);
     }
 
     @Override
     public void giveFigures(final int count) {
-        playerBoard.giveFigures(count);
+        assert count == 1; // v jednom kole sa moze pridat len 1 figurka
+        playerBoard.playerFigures().addNewFigure();
     }
 
     @Override
     public boolean hasFigures(final int count) {
-        return playerBoard.hasFigures(count);
+        return playerBoard.playerFigures().hasFigures(count);
     }
 
     @Override
     public boolean hasSufficientTools(final int goal) {
-        return playerBoard.hasSufficientTools(goal);
+        return playerBoard.playerTools().hasSufficientTools(goal);
     }
 
     @Override
     public OptionalInt useTool(final int idx) {
-        return playerBoard.useTool(idx);
+        return playerBoard.playerTools().useTool(idx);
     }
 
     @Override
@@ -88,6 +93,6 @@ public final class PlayerBoardFacade implements InterfaceFeedTribe, InterfaceNew
 
     @Override
     public void givePoints(final int points) {
-        playerBoard.givePoints(points);
+        playerBoard.addPoints(points);
     }
 }
