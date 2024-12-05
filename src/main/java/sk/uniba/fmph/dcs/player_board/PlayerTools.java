@@ -21,6 +21,13 @@ public final class PlayerTools {
         this.singleUseTools = new ArrayList<>();
         this.usedSingleUseTools = new ArrayList<>();
     }
+    public int getToolCount() {
+        int result = 0;
+        for (int x : tools) {
+            result += x;
+        }
+        return result;
+    }
 
     public void newTurn() {
         for (int i = 0; i < usedTools.size(); i++) {
@@ -98,6 +105,7 @@ public final class PlayerTools {
                 "usedTools", usedTools.toString(),
                 "usedSingleUseTools", usedSingleUseTools.toString()
         );
+
         return new JSONObject(state).toString();
     }
 }

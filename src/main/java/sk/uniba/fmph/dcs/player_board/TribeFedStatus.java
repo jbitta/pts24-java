@@ -23,6 +23,10 @@ public final class TribeFedStatus {
         this.playerFigures = playerFigures;
     }
 
+    public int getFields() {
+        return fields;
+    }
+
     public void addField() {
         if (fields < TRIBE_MAX_FIELDS) {
             fields++;
