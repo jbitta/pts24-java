@@ -56,14 +56,6 @@ public class RewardMenu implements InterfaceTakeReward {
         if (!players.containsKey(player)) {
             return HasAction.NO_ACTION_POSSIBLE;
         }
-        if (items.size() == 1) {
-            ArrayList<Effect> result = new ArrayList<>();
-            result.add(items.get(0));
-            players.get(player).playerBoard().giveEffect(result);
-            items.remove(0);
-            players.remove(player);
-            return HasAction.AUTOMATIC_ACTION_DONE;
-        }
         return HasAction.WAITING_FOR_PLAYER_ACTION;
     }
 

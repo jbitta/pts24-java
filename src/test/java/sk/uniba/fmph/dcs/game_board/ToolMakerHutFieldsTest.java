@@ -171,8 +171,10 @@ public class ToolMakerHutFieldsTest {
                 assertFalse(toolMakerHutFields.actionHut(p));
             }
         }
-        assertTrue(toolMakerHutFields.actionHut(player2));
-        assertTrue(toolMakerHutFields.newTurn());
+        assertFalse(toolMakerHutFields.actionHut(player2));
+        assertTrue(toolMakerHutFields.placeOnHut(player2));
+        assertFalse(toolMakerHutFields.newTurn());
+        assertTrue(toolMakerHutFields.placeOnHut(player2));
         assertTrue(toolMakerHutFields.placeOnFields(player3));
         for (Player p : players) {
             if (!p.equals(player3)) {
@@ -180,7 +182,7 @@ public class ToolMakerHutFieldsTest {
             }
         }
         assertTrue(toolMakerHutFields.actionFields(player3));
-        assertTrue(toolMakerHutFields.newTurn());
+        assertFalse(toolMakerHutFields.newTurn());
         JSONObject state = new JSONObject(toolMakerHutFields.state());
         ArrayList<PlayerOrder> toolMakerFigures = new ArrayList<>();
         ArrayList<PlayerOrder> fieldsFigures = new ArrayList<>();
@@ -189,5 +191,19 @@ public class ToolMakerHutFieldsTest {
         assertEquals(state.get("fieldsFigures"), fieldsFigures.toString());
         assertEquals(state.get("hutFigures"), hutFigures.toString());
         assertEquals(state.get("restriction"), "3");
+    }
+
+    @Test
+    public void skipActionTest() {
+        ToolMakerHutFields toolMakerHutFields = new ToolMakerHutFields(playerCount);
+        for (Player p : players) {
+            assertTrue(toolMakerHutFields.skipActionToolMaker(p));
+            assertTrue(toolMakerHutFields.skipActionHut(p));
+            assertTrue(toolMakerHutFields.skipActionFields(p));
+        }
+        assertTrue(toolMakerHutFields.placeOnToolMaker(player1));
+        assertTrue(toolMakerHutFields.skipActionToolMaker(player1));
+        JSONObject state = new JSONObject(toolMakerHutFields.state());
+        assertEquals(state.get("toolMakerFigures"), new ArrayList<>().toString());
     }
 }

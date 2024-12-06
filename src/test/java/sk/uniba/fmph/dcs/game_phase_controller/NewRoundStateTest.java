@@ -11,6 +11,7 @@ import sk.uniba.fmph.dcs.stone_age.InterfaceNewTurn;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -63,6 +64,9 @@ public class NewRoundStateTest {
         }
     }
 
+    private final Map<PlayerOrder, InterfaceNewTurn> playerOrderNewRoundMockMap = Map.of(new PlayerOrder(1, 1),
+            new NewRoundMock());
+
     @Test
     public void tryToMakeAutomaticActionTest() {
         List<InterfaceFigureLocation> places1 = new ArrayList<>();
@@ -71,9 +75,9 @@ public class NewRoundStateTest {
         List<InterfaceFigureLocation> places2 = new ArrayList<>();
         places2.add(new FigureLocationMock(false));
 
-        NewRoundState nrs1 = new NewRoundState(places1, new NewRoundMock());
+        NewRoundState nrs1 = new NewRoundState(places1, playerOrderNewRoundMockMap);
         assertEquals(nrs1.tryToMakeAutomaticAction(new PlayerOrder(1, 1)), HasAction.NO_ACTION_POSSIBLE);
-        NewRoundState nrs2 = new NewRoundState(places2, new NewRoundMock());
+        NewRoundState nrs2 = new NewRoundState(places2, playerOrderNewRoundMockMap);
         assertEquals(nrs2.tryToMakeAutomaticAction(new PlayerOrder(1, 1)), HasAction.AUTOMATIC_ACTION_DONE);
     }
 

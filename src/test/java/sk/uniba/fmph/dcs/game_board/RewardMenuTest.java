@@ -86,8 +86,8 @@ public class RewardMenuTest {
         assertTrue(menu.takeReward(playerOrder1, Effect.WOOD));
         assertEquals(menu.tryMakeAction(playerOrder1), HasAction.NO_ACTION_POSSIBLE);
         assertFalse(menu.takeReward(playerOrder2, Effect.WOOD));
-        assertEquals(menu.tryMakeAction(playerOrder2), HasAction.AUTOMATIC_ACTION_DONE);
-        assertFalse(menu.takeReward(playerOrder2, Effect.CLAY));
+        assertEquals(menu.tryMakeAction(playerOrder2), HasAction.WAITING_FOR_PLAYER_ACTION);
+        assertTrue(menu.takeReward(playerOrder2, Effect.CLAY));
         assertEquals(menu.tryMakeAction(playerOrder2), HasAction.NO_ACTION_POSSIBLE);
     }
 

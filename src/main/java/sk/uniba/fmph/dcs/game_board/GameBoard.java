@@ -37,7 +37,7 @@ public final class GameBoard implements InterfaceGetState {
         locations = new HashMap<>();
         locations.put(Location.TOOL_MAKER, new PlaceOnToolMakerAdaptor(toolMakerHutFields));
         locations.put(Location.HUT, new PlaceOnHutAdaptor(toolMakerHutFields));
-        locations.put(Location.FIELD, new PlaceOnHutAdaptor(toolMakerHutFields));
+        locations.put(Location.FIELD, new PlaceOnFieldsAdaptor(toolMakerHutFields));
 
         Map<ImmediateEffect, EvaluateCivilisationCardImmediateEffect> evaluate = initializeEvaluationMap();
 

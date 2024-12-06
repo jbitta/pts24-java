@@ -1,12 +1,9 @@
-package sk.uniba.fmph.dcs.stone_age;
+package sk.uniba.fmph.dcs.game_board;
 
-import sk.uniba.fmph.dcs.game_board.Building;
-import sk.uniba.fmph.dcs.game_board.CivilizationCardDeck;
-import sk.uniba.fmph.dcs.game_board.GameBoard;
-import sk.uniba.fmph.dcs.game_board.Player;
-import sk.uniba.fmph.dcs.game_board.ArbitraryBuilding;
-import sk.uniba.fmph.dcs.game_board.SimpleBuilding;
-import sk.uniba.fmph.dcs.game_board.VariableBuilding;
+import sk.uniba.fmph.dcs.stone_age.CivilisationCard;
+import sk.uniba.fmph.dcs.stone_age.Effect;
+import sk.uniba.fmph.dcs.stone_age.EndOfGameEffect;
+import sk.uniba.fmph.dcs.stone_age.ImmediateEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,9 @@ public final class GameBoardFactory {
     private static final int NUMBER_OF_RESOURCE_TYPES_2 = 2;
     private static final int NUMBER_OF_RESOURCE_TYPES_4 = 4;
     private static final int DESIRED_RESULT_IN_THROW = 6;
-private GameBoardFactory() { }
+
+    private GameBoardFactory() {
+    }
 
     public static GameBoard createGameBoard(final ArrayList<Player> players) {
         ArrayList<CivilisationCard> cards = new ArrayList<>();

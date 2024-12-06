@@ -1,14 +1,10 @@
 package sk.uniba.fmph.dcs.game_board;
 
-import org.json.JSONObject;
 import sk.uniba.fmph.dcs.stone_age.ActionResult;
 import sk.uniba.fmph.dcs.stone_age.Effect;
 import sk.uniba.fmph.dcs.stone_age.HasAction;
-import sk.uniba.fmph.dcs.stone_age.PlayerOrder;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public final class PlaceOnHutAdaptor implements InterfaceFigureLocationInternal {
     private final ToolMakerHutFields hut;
@@ -44,14 +40,15 @@ public final class PlaceOnHutAdaptor implements InterfaceFigureLocationInternal 
 
     @Override
     public boolean skipAction(final Player player) {
-        JSONObject state = new JSONObject(hut.state());
-        ArrayList<PlayerOrder> hutFigures = new ArrayList<>(List.of(player.playerOrder(), player.playerOrder()));
-        return !state.get("hutFigures").equals(hutFigures.toString());
+        return hut.placeOnHut(player);
     }
 
     @Override
     public HasAction tryToMakeAction(final Player player) {
-        return HasAction.WAITING_FOR_PLAYER_ACTION;
+        if (hut.tryToMakeActionHut(player)) {
+            return HasAction.WAITING_FOR_PLAYER_ACTION;
+        }
+        return HasAction.NO_ACTION_POSSIBLE;
     }
 
     @Override
