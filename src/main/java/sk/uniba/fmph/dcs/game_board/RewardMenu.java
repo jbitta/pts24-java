@@ -60,6 +60,9 @@ public class RewardMenu implements InterfaceTakeReward {
     }
 
     public final String state() {
+        if (items == null){
+            return "";
+        }
         Map<String, String> state = Map.of("items", items.toString());
 
         return new JSONObject(state).toString();
