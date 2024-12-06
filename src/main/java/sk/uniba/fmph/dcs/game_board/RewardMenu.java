@@ -60,7 +60,7 @@ public class RewardMenu implements InterfaceTakeReward {
     }
 
     public final String state() {
-        if (items == null){
+        if (items == null) {
             return "";
         }
         Map<String, String> state = Map.of("items", items.toString());
