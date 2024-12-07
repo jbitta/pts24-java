@@ -36,7 +36,7 @@ public final class PlayerBoardFacade implements InterfaceFeedTribe, InterfaceNew
         if (!ret) {
             playerBoard.takePoints(PlayerBoard.POINTS_TO_TAKE_IF_TRIBE_IS_NOT_FED);
         }
-        return ret;
+        return !ret;
     }
 
     @Override

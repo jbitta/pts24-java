@@ -69,7 +69,9 @@ public final class NewRoundState implements InterfaceGamePhaseState {
                 return HasAction.NO_ACTION_POSSIBLE;
             }
         }
-        newTurnPlayerBoards.get(player).newTurn();
+        for (InterfaceNewTurn newTurn : newTurnPlayerBoards.values()) {
+            newTurn.newTurn();
+        }
         return HasAction.AUTOMATIC_ACTION_DONE;
     }
 }
