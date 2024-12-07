@@ -1,5 +1,6 @@
 package sk.uniba.fmph.dcs.stone_age;
 
+import org.json.JSONObject;
 import sk.uniba.fmph.dcs.game_board.GameBoard;
 import sk.uniba.fmph.dcs.game_board.GameBoardFactory;
 import sk.uniba.fmph.dcs.game_board.Player;
@@ -131,11 +132,15 @@ public final class StoneAgeGame implements InterfaceStoneAgeGame {
     }
 
     private void notifyObservable() {
-        observable.notify(gameBoard.state());
-        observable.notify(gamePhaseController.state());
+        Map<String, String> state = new HashMap<>();
+        state.put("GameBoard", gameBoard.state());
+        state.put("GamePhaseController", gamePhaseController.state());
+        int i = 1;
         for (InterfaceGetState pB : playerBoards) {
-            observable.notify(pB.state());
+            state.put("Player" + i, pB.state());
+            i++;
         }
+        observable.notify(new JSONObject(state).toString());
     }
 
     private static Map<Integer, PlayerOrder> initializeMap(final ArrayList<Integer> players) {

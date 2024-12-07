@@ -112,7 +112,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean skipActionHut(final Player player) {
-        if (tryToMakeActionToolMaker(player)) {
+        if (tryToMakeActionHut(player)) {
             hutFigures.clear();
         }
         return true;
@@ -150,7 +150,7 @@ public final class ToolMakerHutFields {
     }
 
     public boolean skipActionFields(final Player player) {
-        if (tryToMakeActionToolMaker(player)) {
+        if (tryToMakeActionFields(player)) {
             fieldsFigures.remove(player.playerOrder());
         }
         return true;
